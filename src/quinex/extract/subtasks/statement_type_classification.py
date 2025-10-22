@@ -73,11 +73,10 @@ class StatementTypeClassification:
                     print("Quantity that caused error:", quantity)
                     raise print(f"Error in statement classification: {e}")
                                 
-                # Take chunk size smaller than the maximum model input size as the training examples were fairly small.                
-                chunk_size = 200 # TODO: Change chunk size with new training data.                
+                # Take chunk size smaller than the maximum model input size as the training examples were fairly small.
+                chunk_size = 200 # TODO: Change chunk size with new training data.
                 
-                centering_span = (quantity_offset[0], quantity_offset[1]+len(self.clf_quantity_enclosing[0])+len(self.clf_quantity_enclosing[1]))
-                # _, statement_clf_context = semchunk.get_single_centered_chunk(statement_clf_context, centering_char_offsets=centering_span, chunk_size=chunk_size, semantic_boundaries=semantic_boundaries,token_counter=self.token_counter)
+                centering_span = (quantity_offset[0], quantity_offset[1]+len(self.clf_quantity_enclosing[0])+len(self.clf_quantity_enclosing[1]))                
                 statement_clf_context = semchunk.get_single_centered_chunk(statement_clf_context, centering_char_offsets=centering_span, chunk_size=chunk_size, token_counter=self.token_counter, semantic_boundaries=semantic_boundaries, offsets=False)
 
                 statement_clf_inputs.append(statement_clf_context)

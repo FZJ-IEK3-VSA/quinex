@@ -2,10 +2,6 @@ import re
 from time import time
 from spacy import Language
 
-from text_processing_utils.iob_tags import iob_tags_to_spans, remove_overlapping_bio_tags, token_spans_to_char_annotations
-
-from quinex_utils.lookups.number_words import NUMBER_WORDS
-from quinex_utils.lookups.imprecise_quantities import IMPRECISE_QUANTITIES
 from quinex_utils.lookups.physical_constants import PHYSICAL_CONSTANTS_LOWERED
 from quinex_utils.parsers.quantity_parser import FastSymbolicQuantityParser
 from quinex_utils.patterns.contains import CONTAINS_DIGIT_REGEX, CONTAINS_NUMBER_WORD_OR_IMPRECISE_QUANTITY_REGEX

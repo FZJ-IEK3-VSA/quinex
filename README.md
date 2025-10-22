@@ -3,8 +3,6 @@
 
 <img src="assets/quinex_logo.svg" height="120" />
 
-<br>
-
 # Quinex
 
 ***quinex*** *(**qu**antitative **in**formation **ex**traction)* is a Python library for extracting and analyzing quantitative information from text. It is designed to extract quantities, entities, properties and other measurement context from text. Quinex is domain-agnostic and can power a wide range of applications, such as screening of scientific literature or quantitative search.
@@ -24,7 +22,7 @@ Quinex performs **quantity span identification** and **measurement context extra
 Furthermore, Quinex includes an experimental web service that shows extracted information on a dashboard as well as directly in the source text. From there, the information can be curated. Visualizations include world maps, timelines, and citation networks for tracing the original source of a quantitative statement.
 
 
-Quinex is described in detail in the following article: *"Quinex: Quantitative Information Extraction from Text using Open and Lightweight LLMs"* (2025). Furthermore, the heuristic creation of training data is described in [*"Wiki-Quantities and Wiki-Measurements: Datasets of quantities and their measurement context from Wikipedia"* (2025)](https://doi.org/10.1038/s41597-025-05499-3). For a review of the field of quantitative information extraction pre-ChatGPT, see [*"Measurement Extraction with Natural Language Processing: A Review"* (2022)](https://doi.org/10.18653/v1/2022.findings-emnlp.161).
+Quinex is described in detail in the following article: *"Quinex: Quantitative Information Extraction from Text using Open and Lightweight LLMs"* (published soon). Furthermore, the heuristic creation of training data is described in [*"Wiki-Quantities and Wiki-Measurements: Datasets of quantities and their measurement context from Wikipedia"* (2025)](https://doi.org/10.1038/s41597-025-05499-3). For a review of the field of quantitative information extraction pre-ChatGPT, see [*"Measurement Extraction with Natural Language Processing: A Review"* (2022)](https://doi.org/10.18653/v1/2022.findings-emnlp.161).
 
 
 ## Why use quinex?

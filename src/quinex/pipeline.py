@@ -193,7 +193,7 @@ class Quinex:
             doc, semantic_boundaries = self.preprocess(text)
 
             # Get chunks.        
-            q_chunks = semchunk.chunk(text, chunk_size=self.quantity_identifier.chunk_size, token_counter=self.quantity_identifier.token_counter, semantic_boundaries=semantic_boundaries, non_destructive=True, offsets=True)
+            q_chunks = semchunk.chunk(text, chunk_size=self.quantity_identifier.chunk_size, token_counter=self.quantity_identifier.token_counter, semantic_boundaries=semantic_boundaries, non_destructive=True, offsets=True, as_tuples=True)
 
             # Get batches of chunks.        
             q_batches = get_batches_of_roughly_equal_size(q_chunks, self.batch_sizes["quantity_model"])
@@ -219,7 +219,7 @@ class Quinex:
             doc, semantic_boundaries = self.preprocess(text)
             
             # Get quantities.            
-            q_chunks = semchunk.chunk(text, chunk_size=self.quantity_identifier.chunk_size, token_counter=self.quantity_identifier.token_counter, semantic_boundaries=semantic_boundaries, non_destructive=True, offsets=True)
+            q_chunks = semchunk.chunk(text, chunk_size=self.quantity_identifier.chunk_size, token_counter=self.quantity_identifier.token_counter, semantic_boundaries=semantic_boundaries, non_destructive=True, offsets=True, as_tuples=True)
             q_batches = get_batches_of_roughly_equal_size(q_chunks, self.batch_sizes["quantity_model"])
             quantities = []
             for i, q_batch in enumerate(q_batches):
@@ -344,7 +344,7 @@ class Quinex:
         doc, semantic_boundaries = self.preprocess(text)
 
         # Get chunks.        
-        q_chunks = semchunk.chunk(text, chunk_size=self.quantity_identifier.chunk_size, token_counter=self.quantity_identifier.token_counter, semantic_boundaries=semantic_boundaries, non_destructive=True, offsets=True)
+        q_chunks = semchunk.chunk(text, chunk_size=self.quantity_identifier.chunk_size, token_counter=self.quantity_identifier.token_counter, semantic_boundaries=semantic_boundaries, non_destructive=True, offsets=True, as_tuples=True)
 
         # Get batches of chunks.        
         q_batches = get_batches_of_roughly_equal_size(q_chunks, self.batch_sizes["quantity_model"])
