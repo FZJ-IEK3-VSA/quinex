@@ -1,0 +1,57 @@
+
+model_family_configs:
+  v0: &v0_config # TODO: Put this directly into model config
+    enclosing_markers:
+      quantity: ["$", "$"]
+      property: ["**", "**"]
+      entity: ["[[", "]]"]
+    question_templates:                
+      # Property
+      property_question: "Which property or quality is characterized by {quantity_span}?"
+      # Entity
+      entity_question: "Which entity's {property_span} {is_or_are} characterized by {quantity_span}?"
+      entity_question_fallback: "Which entity does {quantity_span} characterize?"
+      # Temporal scope
+      temporal_scope_question: "For which point in time is the statement true that {property_span} of {entity_span} {is_or_are} {quantity_span}?"
+      temporal_scope_question_fallback: "For which point in time is the statement true that {entity_or_property_span} {is_or_are} {quantity_span}?"
+      # Spatial scope
+      spatial_scope_question: "For which location is the statement true that {property_span} of {entity_span} {is_or_are} {quantity_span}?"
+      spatial_scope_question_fallback: "For which location is the statement true that {entity_or_property_span} {is_or_are} {quantity_span}?"
+      # Reference
+      reference_question: "According to whom or which reference is the statement true that {property_span} of {entity_span} {is_or_are} {quantity_span}?"
+      reference_question_fallback: "According to whom or which reference is the statement true that {entity_or_property_span} {is_or_are} {quantity_span}?"
+      # Method
+      method_question: "What methods and instruments were used in determining that {property_span} of {entity_span} {is_or_are} {quantity_span}?"
+      method_question_fallback: "What methods and instruments were used in determining that {entity_or_property_span} {is_or_are} {quantity_span}?"
+      # Other qualifiers
+      qualifier_question: "Under which constraints is the statement true that {property_span} of {entity_span} {is_or_are} {quantity_span}?"
+      qualifier_question_fallback: "Under which constraints is the statement true that {entity_or_property_span} {is_or_are} {quantity_span}?"
+
+
+quantity_span_identification:
+    JuelichSystemsAnalysis/quinex-quantity-v0-124M:
+      family: v0
+      alias: base
+    JuelichSystemsAnalysis/quinex-quantity-v0-82M:
+      family: v0
+      alias: small
+    JuelichSystemsAnalysis/quinex-quantity-v0-30M:
+      family: v0
+      alias: tiny
+measurement_context_extraction: 
+    JuelichSystemsAnalysis/quinex-context-v0-783M:
+      family: v0
+      alias: base
+      config: *v0_config
+    JuelichSystemsAnalysis/quinex-context-v0-248M:
+      family: v0
+      alias: base
+      config: *v0_config
+    JuelichSystemsAnalysis/quinex-context-v0-77M:
+      family: v0
+      alias: base
+      config: *v0_config
+statement_type_classification:
+    JuelichSystemsAnalysis/quinex-statement-clf-v0-125M:
+      family: v0
+      alias: base

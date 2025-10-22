@@ -1,0 +1,2 @@
+# Web service for bulk analysis of scientific articles
+This folder contains the implementation of a web service to process scientific articles in bulk, extract quantitative information, and analyze the results in a dashboard. Please refer to the [usage guide](../../docs/04_usage_guide_web_service.md) for instructions on how to set up and use the web service.

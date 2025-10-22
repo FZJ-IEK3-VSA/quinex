@@ -1,0 +1,148 @@
+# Useful commands: 
+# $ snakemake --snakefile experiments/extractive_context_extraction/snakefile --dry-run --debug-dag
+# $ snakemake --dag workflow/output/measurement_dataset.json | dot -Tsvg > workflow_dag.svg
+# Tip: If you use VS Code install the extension 'snakemake.snakemake-lang' for syntax highlighting
+import os
+from copy import deepcopy
+from experiments_definitions.example_experiment import RUNS, DATA_DIR, MODEL_DIR
+
+
+model_checkpoint_dir = MODEL_DIR
+
+config_name = lambda model, ds_variant, hp, seed, ds: "_".join([model, ds_variant, "hp" + str(int(hp)), "seed" + str(seed)]).replace("-","_") + "_" + ds
+
+# Get dataset names, e.g., "merged_ner_curated" for "merged_ner/preprocessed/quantity_ner/curated/merged_ner_quantity_ner_train.json"
+def get_dataset_name_from_path(epochs, path, remove_ex, keep_ex): 
+    ds_name = str(epochs) + "x_" + path.replace("-","_").replace("/preprocessed/context_qa/","_").split("/")[0].replace("-","_") + "_wo_" + "_".join(remove_ex) + "_only_" + "_".join(keep_ex)
+    ds_name = ds_name.replace("wiki_measurements", "wikim").replace("wiki-measurements", "wikim").replace("measeval", "meval")
+
+    return ds_name
+
+# Create seperate runs for each model in a run in RUNS.
+runs_expanded_with_variants = []
+for run_base in RUNS:
+
+    # Get base config data.
+    models = run_base["models"]
+    learning_rates_per_model = run_base["learning_rate"]
+    batch_sizes_per_model = run_base["per_device_train_batch_size"]
+    gradient_accumulation_steps_per_model = run_base["gradient_accumulation_steps"]
+    hp_trials_per_model = run_base["number_of_hp_search_trials"]
+    variants = run_base["variants"]
+    
+    # Expand variants.
+    # Variants from 1 to 5 for entity_first and property_first are defined like this:
+    # "variants": ["entity_first_[1-5]", "property_first_[1-5]"],
+    expanded_variants = []
+    for variant in variants:
+        if "[" in variant and "]" in variant:
+            variant_range_def_str = "[" + variant.split("[")[1].split("]")[0] + "]"
+            variant_range = [int(x) for x in variant.split("[")[1].split("]")[0].split("-")]
+            expanded_variants.extend([variant.replace(variant_range_def_str, str(i)) for i in range(variant_range[0], variant_range[1] + 1)])            
+        else:
+            expanded_variants.append(variant)
+        
+    del run_base["variants"]
+    del run_base["models"]
+    del run_base["learning_rate"]
+    del run_base["per_device_train_batch_size"]
+    del run_base["gradient_accumulation_steps"]
+    del run_base["number_of_hp_search_trials"]
+
+    run_expanded = []
+    for model, learning_rate_per_model, batch_size_per_model, grad_acc_steps_per_model, hp_trials in zip(models, learning_rates_per_model, batch_sizes_per_model, gradient_accumulation_steps_per_model, hp_trials_per_model):
+        run = deepcopy(run_base)
+        run.update({"model": model})
+        run.update({"learning_rate": learning_rate_per_model})
+        run.update({"per_device_train_batch_size": batch_size_per_model})
+        run.update({"gradient_accumulation_steps": grad_acc_steps_per_model})
+        run.update({"number_of_hp_search_trials": hp_trials})
+        run_expanded.append(run)
+
+    print(expanded_variants)
+    print(run_expanded)
+
+    for variant in expanded_variants:
+        for run in run_expanded:
+            run_variant = deepcopy(run)
+            run_variant.update({"variant": variant})
+            train_sets = [train_set.format(variant=variant) for train_set in run["train_sets"]]
+            dev_sets = [dev_set.format(variant=variant) for dev_set in run["dev_sets"]]
+            test_sets = [test_set.format(variant=variant) for test_set in run["test_sets"]]
+            run_variant.update({"train_sets": train_sets})
+            run_variant.update({"dev_sets": dev_sets})
+            run_variant.update({"test_sets": test_sets})
+            runs_expanded_with_variants.append(run_variant)
+
+
+model_hf_names = set()
+model_cache_names = set()
+all_final_configs = []
+for run in runs_expanded_with_variants:
+    model = run["model"]
+    model_hf_names.add(model)    
+    model_cache_name = model.split("/")[-1].replace("-", "_").replace(".", "_")
+    model_cache_names.add(model_cache_name)
+    datasets = [get_dataset_name_from_path(epochs, ds, remove_ex, keep_ex) for epochs, ds, remove_ex, keep_ex in zip(run["epochs"], run["train_sets"], run["remove_examples_based_on_id_substring"], run["keep_examples_based_on_id_substring"])]
+    print("datasets", datasets)
+    final_dataset_str = "_".join(datasets)#.replace("-","_")
+    print("final_dataset_str", final_dataset_str)
+
+    all_final_configs.append(config_name(model_cache_name, run["variant"], run["hyperparameter_optimization"], run["seed"], final_dataset_str))
+
+# Specify final models.
+print("All config names:", all_final_configs)
+print("All configs:", runs_expanded_with_variants)
+rule all:
+    input: expand(model_checkpoint_dir + '{config}',config=all_final_configs) 
+
+# Download models and tokenizers.
+download = False
+if download:
+    for model_hf_name, model_cache_name in zip(model_hf_names, model_cache_names):
+        checkpoint_path = model_checkpoint_dir + model_cache_name
+        rule:
+            output: directory(checkpoint_path)
+            name: f'download_pretrained_model_{model_cache_name}'
+            params:    
+                model_name = model_hf_name
+            shell: 'python dev/scripts/download_base_models.py --model_name "{params.model_name}" --save_to "./{output}" --task "context_qa"'
+
+# Train for each configuration.
+for i, run in enumerate(runs_expanded_with_variants):    
+    model = run["model"].split("/")[-1].replace("-", "_").replace(".", "_")
+    last_checkpoint = model_checkpoint_dir + model
+    config_str = f'{run["variant"]}_hp{int(run["hyperparameter_optimization"])}_seed{run["seed"]}'.replace("-","_")    
+    
+    print(last_checkpoint)
+    for j, (nbr_epochs, learning_rate, train_set, dev_set, test_set, remove_ex, keep_ex) in enumerate(zip(run["epochs"], run["learning_rate"], run["train_sets"], run["dev_sets"], run["test_sets"], run["remove_examples_based_on_id_substring"], run["keep_examples_based_on_id_substring"])):
+        dataset_clean = get_dataset_name_from_path(nbr_epochs, train_set, remove_ex, keep_ex) 
+        if j == 0:
+            new_checkpoint = last_checkpoint + "_" + config_str + "_" + dataset_clean
+        else:
+            new_checkpoint = last_checkpoint + "_" + dataset_clean
+        
+        rule:
+            input: last_checkpoint
+            output: directory(new_checkpoint)
+            name: new_checkpoint.removeprefix(model_checkpoint_dir)
+            params:               
+                train_file = os.path.join(DATA_DIR, train_set),
+                dev_file = os.path.join(DATA_DIR, dev_set),
+                test_file = os.path.join(DATA_DIR, test_set),
+                do_hp_opt = "--do_hyperparameter_search" if run["hyperparameter_optimization"] else "",
+                seed = run["seed"],
+                example_exclusion = '""' if len(remove_ex) == 0 else remove_ex,
+                example_inclusion = '""' if len(keep_ex) == 0 else keep_ex,
+                learning_rate = learning_rate,
+                per_device_train_batch_size = run["per_device_train_batch_size"],
+                number_of_hp_search_trials = run["number_of_hp_search_trials"],
+                gradient_accumulation_steps = f'--gradient_accumulation_steps "{run["gradient_accumulation_steps"]}"' if run['gradient_accumulation_steps'] != None else "",
+                fp16 = "--fp16 --fp16_full_eval" if run["fp16"] else "",
+                bf16 = "--bf16 --bf16_full_eval" if run["bf16"] else "",
+                epochs = int(nbr_epochs),
+            resources: gpus=1
+            shell: 'TRANSFORMERS_OFFLINE=1 && HF_DATASETS_OFFLINE=1 && python src/quinex/train_and_evaluate/context_extraction/generative_QA_with_seq2seq_encoder_decoder_models/run_seq2seq_qa.py --model_name_or_path {input} --train_file {params.train_file} --validation_file {params.dev_file} --test_file {params.test_file} --context_column context --question_column question --answer_column answers --do_train --do_eval --per_device_train_batch_size "{params.per_device_train_batch_size}" --learning_rate "{params.learning_rate}" --num_train_epochs "{params.epochs}" {params.gradient_accumulation_steps} --version_2_with_negative --max_seq_length "512" --max_answer_length "120" --doc_stride "128" --adafactor --optim "adafactor" --output_dir {output} --save_strategy "epoch" --evaluation_strategy "epoch" --logging_first_step "True" --logging_strategy "steps" --save_total_limit "1" --predict_with_generate --load_best_model_at_end "True" --metric_for_best_model "f1" --overwrite_cache {params.do_hp_opt} --hp_tuning_n_trials "{params.number_of_hp_search_trials}" --seed {params.seed} --remove_examples_based_on_id_substring {params.example_exclusion} --keep_examples_based_on_id_substring {params.example_inclusion} {params.fp16} {params.bf16} --report_to "tensorboard"'
+            # For quick debugging add: --max_train_samples 500 --max_eval_samples 500
+  
+        last_checkpoint = new_checkpoint

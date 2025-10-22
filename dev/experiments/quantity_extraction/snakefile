@@ -1,0 +1,108 @@
+# Useful commands: 
+# $ snakemake --snakefile experiments/quantity_extraction/snakefile --dry-run --debug-dag
+# $ snakemake --dag workflow/output/measurement_dataset.json | dot -Tsvg > workflow_dag.svg
+# Tip: If you use VS Code install the extension 'snakemake.snakemake-lang' for syntax highlighting
+import os
+from experiments_definitions.example_experiment import RUNS, DATA_DIR, MODEL_DIR
+
+model_checkpoint_dir = MODEL_DIR
+
+config_name = lambda model, hp, seed, ds: "_".join([model, "hp" + str(int(hp)), "seed" + str(seed), ds]).replace("-","_") #f'{model}_{hp}_{run["mask_ratio"]}_pretr_{final_dataset_str}'
+
+# Get dataset names, e.g., "merged_ner_curated" for 
+# "merged_ner/preprocessed/quantity_ner/curated/merged_ner_quantity_ner_train.json",
+def get_dataset_name_from_path(epochs, mask_ratio, path): 
+    ds_name = str(epochs) + "x_" + str(mask_ratio) + "masked_" + path.replace("-","_").replace("/preprocessed/quantity_ner/","_").split("/")[0]
+
+    if "wiki_measurements/preprocessed" in path or "merged_ner/preprocessed" in path:
+        path = path.replace("measurements","m")        
+        # Add special config information for the different Wiki-Quantities variants (e.g., 'tcl500_uct150').
+        subfolder_or_filename = path.split("/")[4]
+        if subfolder_or_filename.startswith("post_processed"):
+            shortened_additional_configs = "_" + subfolder_or_filename.replace("post_processed","pp").replace("deduplicated","dd").replace("balanced","")
+            ds_name += shortened_additional_configs
+    
+    ds_name = ds_name.replace("wiki_measurements", "wikim").replace("_pp_dd__tcl", "_tcl")
+    
+    return ds_name
+        
+# Create seperate runs for each model in a run in RUNS.
+runs_expanded = []
+for run_base in RUNS:
+    models = run_base["models"]
+    learning_rates_per_model = run_base["learning_rate"]
+    batch_sizes_per_model = run_base["per_device_train_batch_size"]    
+    del run_base["models"]
+    del run_base["learning_rate"]
+    del run_base["per_device_train_batch_size"]
+    for model, learning_rate_per_model, batch_size_per_model in zip(models, learning_rates_per_model, batch_sizes_per_model):
+        run = run_base.copy()
+        run.update({"model": model})
+        run.update({"learning_rate": learning_rate_per_model})
+        run.update({"per_device_train_batch_size": batch_size_per_model})
+        runs_expanded.append(run)
+
+model_hf_names = []
+model_cache_names = []
+all_final_configs = []
+for run in runs_expanded:
+    model = run["model"]
+    model_hf_names.append(model)
+    model_cache_name = model.split("/")[-1].replace("-", "_").replace(".", "_")
+    model_cache_names.append(model_cache_name)
+    datasets = [get_dataset_name_from_path(epochs, mask_ratio, ds) for epochs, mask_ratio, ds in zip(run["epochs"], run["mask_ratio"], run["train_sets"])]
+    final_dataset_str =  "_".join(datasets).replace("-","_")
+        
+    all_final_configs.append(config_name(model_cache_name,run["hyperparameter_optimization"],run["seed"],final_dataset_str))    
+
+# Specify final models.
+rule all:
+    input: expand(model_checkpoint_dir + '{config}', config=all_final_configs)
+
+# Download models and tokenizers.
+download = False
+if download:
+    for model_hf_name, model_cache_name in zip(model_hf_names, model_cache_names):
+        checkpoint_path = model_checkpoint_dir + model_cache_name
+        rule:
+            output: directory(checkpoint_path)
+            name: f'download_pretrained_model_{model_cache_name}'
+            params:    
+                model_name = model_hf_name
+            shell: 'python dev/scripts/download_base_models.py --model_name "{params.model_name}" --save_to "{output}" --task "quantity_ner"'
+
+# Train for each configuration.
+for i, run in enumerate(runs_expanded):
+    model = run["model"].split("/")[-1].replace("-", "_").replace(".", "_")
+    last_checkpoint = model_checkpoint_dir + model
+    config_str = f'hp{int(run["hyperparameter_optimization"])}_seed{run["seed"]}'.replace("-","_")    
+    
+    for j, (nbr_epochs, mask_ratio, learning_rate, train_set, dev_set, test_set) in enumerate(zip(run["epochs"], run["mask_ratio"], run["learning_rate"], run["train_sets"], run["dev_sets"], run["test_sets"])):                    
+        dataset_clean = get_dataset_name_from_path(nbr_epochs, mask_ratio, train_set)
+        if j == 0:
+            new_checkpoint = last_checkpoint + "_" + config_str + "_" + dataset_clean
+        else:
+            new_checkpoint = last_checkpoint + "_" + dataset_clean                
+
+
+        rule:
+            input: last_checkpoint
+            output: directory(new_checkpoint)
+            name: new_checkpoint.removeprefix(model_checkpoint_dir)
+            params:
+                train_file = os.path.join(DATA_DIR, train_set),
+                dev_file = os.path.join(DATA_DIR, dev_set),
+                test_file = os.path.join(DATA_DIR, test_set),
+                do_hp_opt = "--do_hyperparameter_search" if run["hyperparameter_optimization"] else "",
+                do_mask = True if mask_ratio > 0 else False,
+                mask_prob = mask_ratio,
+                seed = run["seed"],
+                learning_rate = learning_rate,
+                per_device_train_batch_size = run["per_device_train_batch_size"],
+                number_of_hp_search_trials = run["number_of_hp_search_trials"],
+                epochs = int(nbr_epochs),
+            resources: gpus=1
+            shell: 'TRANSFORMERS_OFFLINE=1 && HF_DATASETS_OFFLINE=1 && python dev/training/quantity_extraction/sequence_labeling_with_autoencoding_encoder_models/run_ner.py --model_name_or_path {input} --train_file {params.train_file} --validation_file {params.dev_file} --test_file {params.test_file} --do_train --do_eval --per_device_train_batch_size "{params.per_device_train_batch_size}" --learning_rate "{params.learning_rate}" --task_name "ner" --num_train_epochs "{params.epochs}" --output_dir {output} --save_strategy "epoch" --evaluation_strategy "epoch" --logging_first_step "True" --logging_strategy "steps" --save_total_limit "1" --load_best_model_at_end "True" --metric_for_best_model "f1" --overwrite_cache --mask_input "{params.do_mask}" --mask_probability "{params.mask_prob}" {params.do_hp_opt} --hp_tuning_n_trials "{params.number_of_hp_search_trials}" --hp_results_path "experiments/quantity_extraction/hyperpar_search_results/" --report_to "tensorboard" --seed {params.seed} --log_level info --max_seq_length 512 --weight_decay 0'
+            # For quick debugging add: --max_train_samples 500 --max_eval_samples 500
+            
+        last_checkpoint = new_checkpoint

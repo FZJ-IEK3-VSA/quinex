@@ -1,0 +1,1 @@
+ABS ( earthquake  AND  ( "moment magnitude"  OR  "surface wave magnitude"  OR  "body wave magnitude"  OR  "local magnitude" )  AND  ( 1  OR  2  OR  3  OR  4  OR  5  OR  6  OR  7  OR  8  OR  9 ) )  AND  ( LIMIT-TO ( LANGUAGE ,  "English" ) )

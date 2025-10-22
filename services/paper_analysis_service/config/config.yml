@@ -1,0 +1,41 @@
+analyses_dashboard:    
+    example_analyses: # List of examples with name and url
+        - name: "Example Analysis 1"
+          url: "/results?analysis=example_analysis_1"
+        - name: "Example Analysis 2"
+          url: "/results?analysis=example_analysis_2"
+        - name: "Example Analysis 3"
+          url: "/results?analysis=example_analysis_3" 
+    text_demo_placeholders:
+        - "The quick brown fox has an eigenfrequency of 5 Hz."
+        - "The 5 MW power plant is located in Germany."
+        - "The Mojave Wind Farm in California is the largest in the US with a combined installed capacity of 1,550 MW."
+        - "The IPCC predicts the global mean surface temperature change in the period of 2016-2035 relative to 1986-2005 to be in the range of 0.3-0.7 ℃ [1]."
+        - "Reykjanesvirkjun is a geothermal power station located in Iceland with a power output of 130 MW."
+        - "The heat pump has a coefficient of performance of 4.0 and requires 1.9 kW to operate."                
+manage_analyses_api: # Service to create and manage bulk analyses.
+    host: "127.0.0.1"
+    port: 5005
+    analyses_dir: "./analyses" # Directory to store analyses in.
+    batch_script_config_path: "./config/default_analysis.json"
+    log_path: './logs/api.log' # currently not used
+    store_on_disk_not_in_db: true
+    mongo_db: # currently not used
+        host: "127.0.0.1"
+        port: 27017
+quinex_api: # Service to quickly annotate small texts with quinex.
+    enable: true
+    host: "127.0.0.1" 
+    port: 5555
+on_demand_batch_processing_api: # Service to annotate many papers in parallel.
+    enable: false
+    host: "127.0.0.1"
+    port: 5050            
+parsing_service: # Grobid service to parse PDFs.
+    enable: false
+    grobid_config_file_path: "./pdf_parser/grobid.json"
+    host: "127.0.0.1" # Should match information in `../pdf_parser/grobid.json`. TODO: Remove redundancy.
+    port: 8080 # Should match information in `../pdf_parser/grobid.json`. TODO: Remove redundancy.
+reading_and_curation_ui: # quinex GUI to render papers with annotations.
+    host: "127.0.0.1"
+    port: 3003

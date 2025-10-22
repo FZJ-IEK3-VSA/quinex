@@ -1,0 +1,1 @@
+See `quinex/examples/application_examples_from_paper` for examples

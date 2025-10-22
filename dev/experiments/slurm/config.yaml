@@ -1,0 +1,27 @@
+# Check https://snakemake.readthedocs.io/en/latest/executing/cli.html for further information
+cluster: mkdir -p logs/experiments/{rule} &&
+  sbatch
+  --partition={resources.partition}
+  --mem={resources.mem_mb}
+  --job-name=smk-{rule}-{wildcards}
+  --output=logs/{rule}/{rule}-{wildcards}-%j.out
+  --parsable  
+  --gpus-per-node={resources.gpus} 
+  --cpus-per-task={resources.threads}
+  --exclude=cn[1-21,31-55]
+default-resources:
+  - partition=normal
+  - mem_mb=100000
+  - gpus=8
+  - threads=1
+restart-times: 0
+max-jobs-per-second: 5
+max-status-checks-per-second: 1
+latency-wait: 200
+jobs: 90
+keep-going: False
+rerun-incomplete: False
+printshellcmds: True
+scheduler: greedy
+forceall: False
+use-conda: False

@@ -1,0 +1,62 @@
+{
+    "analysis_name": "some_expressive_analysis_name_YY-MM-DD",
+    "parse": {
+        "grobid": {
+            "grobid_server": "http://localhost:8070",
+            "max_parallel_workers": 16,
+            "batch_size": 10
+        },
+        "images": {
+            "extract_figures_and_tables": false,
+            "use_grobid_detector": false,
+            "use_papermage_detector": true
+        }
+    },
+    "quantitative_information_extraction": {
+        "max_parallel_workers": 1,
+        "skip_imprecise_quantities": false,
+        "enable_context_extraction": true,
+        "enable_qualifier_extraction": true,
+        "enable_statement_classification": true,
+        "model_paths": {
+            "quantity_model": "JuelichSystemsAnalysis/quinex-quantity-v0-124M",
+            "context_model": "JuelichSystemsAnalysis/quinex-context-v0-783M",
+            "statement_clf_model": "JuelichSystemsAnalysis/quinex-statement-clf-v0-125M"
+        },
+        "use_cpu": false,
+        "parallel_worker_device_map": {
+            "quantity_model": {
+                "n_workers": 1,
+                "gpu_device_ranks": [
+                    0
+                ],
+                "batch_size": 128
+            },
+            "context_model": {
+                "n_workers": 3,
+                "gpu_device_ranks": [
+                    0
+                ],
+                "batch_size": 64
+            },
+            "qualifier_model": {
+                "n_workers": 3,
+                "gpu_device_ranks": [
+                    0
+                ],
+                "batch_size": 64
+            },
+            "statement_clf_model": {
+                "n_workers": 1,
+                "gpu_device_ranks": [
+                    0
+                ],
+                "batch_size": 64
+            }
+        },
+        "verbosity": {
+            "verbose": false,
+            "debug": false
+        }
+    }
+}

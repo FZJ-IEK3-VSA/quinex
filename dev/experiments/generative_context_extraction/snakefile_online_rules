@@ -1,0 +1,32 @@
+# Useful commands: 
+# $ snakemake --snakefile experiments/quantity_extraction/snakefile --dry-run --debug-dag
+# $ snakemake --dag workflow/output/measurement_dataset.json | dot -Tsvg > workflow_dag.svg
+# Tip: If you use VS Code install the extension 'snakemake.snakemake-lang' for syntax highlighting
+from experiments_definitions.example_experiment import RUNS, MODEL_DIR
+
+
+model_checkpoint_dir = MODEL_DIR
+
+config_name = lambda model, hp, mask, ds: "_".join([model, str(hp), str(mask), ds]).replace("-","_")
+
+model_hf_names = []
+model_cache_names = []
+all_final_configs = []
+for run in RUNS:
+    for model in run["models"]:        
+        model_hf_names.append(model)    
+        model_cache_name = model.split("/")[-1].replace("-", "_").replace(".", "_")
+        model_cache_names.append(model_cache_name)
+
+rule all:
+    input: expand(model_checkpoint_dir + '{model}', model=model_cache_names)
+
+# Download models and tokenizers.
+for model_hf_name, model_cache_name in zip(model_hf_names, model_cache_names):    
+    checkpoint_path = model_checkpoint_dir + model_cache_name
+    rule:
+        output: directory(checkpoint_path)
+        name: f'download_pretrained_model_{model_cache_name}'
+        params:
+            model_name = model_hf_name
+        shell: 'python dev/scripts/download_base_models.py --model_name "{params.model_name}" --save_to "{output}" --task "context_qa"'

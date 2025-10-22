@@ -1,0 +1,12 @@
+tasks:
+  full:    
+    - quantity_extraction
+    - context_extraction
+    - qualifier_extraction
+    - statement_classification
+  quantity_only:    
+    - quantity_extraction
+  qclaim:    
+    - quantity_extraction
+    - context_extraction
+    - qualifier_extraction

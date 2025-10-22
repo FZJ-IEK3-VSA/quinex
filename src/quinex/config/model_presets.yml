@@ -1,0 +1,14 @@
+
+models:
+  base:  
+      quantity_model_name: JuelichSystemsAnalysis/quinex-quantity-v0-124M
+      context_model_name: JuelichSystemsAnalysis/quinex-context-v0-783M
+      statement_clf_model_name: JuelichSystemsAnalysis/quinex-statement-clf-v0-125M
+  small:  
+      quantity_model_name: JuelichSystemsAnalysis/quinex-quantity-v0-82M
+      context_model_name: JuelichSystemsAnalysis/quinex-context-v0-248M
+      statement_clf_model_name: JuelichSystemsAnalysis/quinex-statement-clf-v0-125M
+  tiny:  
+      quantity_model_name: JuelichSystemsAnalysis/quinex-quantity-v0-30M
+      context_model_name: JuelichSystemsAnalysis/quinex-context-v0-77M
+      statement_clf_model_name: JuelichSystemsAnalysis/quinex-statement-clf-v0-125M
