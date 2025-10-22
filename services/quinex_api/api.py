@@ -63,7 +63,7 @@ parallel_worker_device_map = {
     }
 }   
 
-quinex = Quinex(**models, **tasks, use_cpu=use_cpu, parallel_worker_device_map=parallel_worker_device_map)
+quinex = Quinex(**models.base, **tasks.full, use_cpu=use_cpu, parallel_worker_device_map=parallel_worker_device_map)
 
 
 # ==========================================
