@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* h3 + span:before, span + h3:before {
+    content:"\a";
+    white-space: pre;
+} */

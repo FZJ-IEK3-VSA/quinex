@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  quinex-gui:
+    container_name: "quinex-gui"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - "3003:3003"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    environment:
+      NODE_ENV: development
