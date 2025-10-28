@@ -38,16 +38,14 @@ dependencies = [
     "transformers==4.36.2",
     "sentencepiece==0.1.99",
     "protobuf==4.23.4",
-    "requests==2.31.0"
+    "requests==2.31.0",
+    "pandas==2.3.1",
+    "text_processing_utils @ git+https://github.com/FZJ-IEK3-VSA/text-processing-utils.git", 
+    "quinex_utils @ git+https://github.com/FZJ-IEK3-VSA/quinex-utils.git", 
+    "semchunk @ git+https://github.com/FZJ-IEK3-VSA/llm-chunker.git",
 ]
 
 [project.optional-dependencies]
-add_onced_published = [
-    "text_processing_utils", 
-    "quinex_utils", 
-    "llm-chunker", 
-    "emoji-annotation-tool"
-]
 development = [
     "pytest",
     "snakemake==7.32.4",
@@ -86,7 +84,6 @@ create_plots = [
     "scipy==1.11.4",
     "plotly==5.24.1",
     "numpy==1.26.3",
-    "pandas==2.3.1",
     "geopy==2.4.1",
     "kaleido"
 ]
@@ -102,6 +99,10 @@ package-dir = {"" = "src"}
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["*"]
+
+[tool.setuptools.package-data]
+"quinex.config" = ["*.yml"]
+"quinex.normalize.spatial_scope.static_resources" = ["*.json"]
 
 [build-system]
 requires = ["setuptools"]

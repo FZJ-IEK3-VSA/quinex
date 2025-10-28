@@ -9,7 +9,7 @@
 
 Quinex performs **quantity span identification** and **measurement context extraction**. Quantity span identification is the task of identifying quantities in text. This task closely relates to named entity recognition and thus can be framed as sequence labeling task. Measurement context extraction is the task of identifying the measured entity, property, and other measurement context for a given quantity. Additionally, quantities are normalized to a standardized form and the quantitative statements are classified into different types (e.g., specification, goal, observation, etc.).
 
-**Features:**
+### Features
 - Extract all **quantities** in a given text (optionally also imprecise quantities, e.g., “several turbines”)
 - Normalize quantities to a standardized form
 - Extract measurement contexts for each quantity
@@ -18,16 +18,23 @@ Quinex performs **quantity span identification** and **measurement context extra
     - Extract additional information (i.e., the **temporal scope, spatial scope, references, determination method, and other qualifiers**)
 - Experimental: Classify the type of quantitative statement (e.g., specification, goal, observation, etc.)
 
-
 Furthermore, Quinex includes an experimental web service that shows extracted information on a dashboard as well as directly in the source text. From there, the information can be curated. Visualizations include world maps, timelines, and citation networks for tracing the original source of a quantitative statement.
 
 
-Quinex is described in detail in the following article: *"Quinex: Quantitative Information Extraction from Text using Open and Lightweight LLMs"* (published soon). Furthermore, the heuristic creation of training data is described in [*"Wiki-Quantities and Wiki-Measurements: Datasets of quantities and their measurement context from Wikipedia"* (2025)](https://doi.org/10.1038/s41597-025-05499-3). For a review of the field of quantitative information extraction pre-ChatGPT, see [*"Measurement Extraction with Natural Language Processing: A Review"* (2022)](https://doi.org/10.18653/v1/2022.findings-emnlp.161).
+### Related resources
+- [Models](https://huggingface.co/collections/JuelichSystemsAnalysis/quinex-v0)
+- [Datasets](https://github.com/FZJ-IEK3-VSA/quinex-datasets)
+- [quinex-utils](https://github.com/FZJ-IEK3-VSA/quinex-utils)
+
+### Related publications
+
+Quinex is described in detail in the following article: 
+*"Quinex: Quantitative Information Extraction from Text using Open and Lightweight LLMs"* (published soon). Furthermore, the heuristic creation of training data is described in [*"Wiki-Quantities and Wiki-Measurements: Datasets of quantities and their measurement context from Wikipedia"* (2025)](https://doi.org/10.1038/s41597-025-05499-3). For a review of the field of quantitative information extraction pre-ChatGPT, see [*"Measurement Extraction with Natural Language Processing: A Review"* (2022)](https://doi.org/10.18653/v1/2022.findings-emnlp.161).
 
 
 ## Why use quinex?
 
-Like larger, general-purpose LLMs, Quinex is built on transformer models. However, it is specifically tailored to the task of extracting quantitative information from text and thus can be much **more efficient** with orders of magnitude less model parameters. Compared to similar specialized tools, quinex is more **accurate**, provides more **contextual information**, is **domain-agnostic**, and considers **implicit properties**. Furthermore, although quinex makes mistakes determining the measurement context, it **cannot hallucinate quantities**, as they are directly extracted from the text. As quinex' predictions are grounded in the text, they are **transparent** and can be **easily verified**. Lastly, quinex is **open-source** and can be **self-hosted**.
+Like larger, general-purpose LLMs, Quinex is built on transformer models. However, it is specifically tailored to the task of extracting quantitative information from text and thus can be much **more efficient** with orders of magnitude less model parameters. Compared to similar specialized tools, quinex is more **accurate**, provides more **contextual information**, is **domain-agnostic**, and considers **implicit properties**. Furthermore, although quinex does occasionally misinterpret the measurement context, it **cannot hallucinate quantities**, as they are extracted directly from the text. As quinex' predictions are grounded in the text, they are **transparent** and can be **easily verified**. Lastly, quinex is **open-source** and can be **self-hosted**.
 
 
 ## Getting started
@@ -35,16 +42,12 @@ Like larger, general-purpose LLMs, Quinex is built on transformer models. Howeve
 First, familiarize yourself with the [strengths](#why-use-quinex) and [limitations](#limitations) of quinex. You may also want to read the [FAQ](#faq) section.
 
 Quinex can be used as a **Python library**, via **API**, or in a **web service** to for analyzing scientific literature. See the [usage guide](./docs/01_usage_guide.md) for detailed instructions.
-
-> [!IMPORTANT]
-> We are in the process of publishing all dependencies; therefore, installation will not work yet.
-
-To use quinex as a **Python library** create a virtual environment (for example, via mamba), activate it
+To use quinex as a **Python library** create a virtual environment (for example, via mamba) and activate it:
 ```bash
 mamba create --name "quinex_env" python=3.9 -c conda-forge
 mamba activate quinex_env
 ```
-and then install quinex via pip:
+Then, install quinex via pip:
 ```bash
 pip install git+https://github.com/FZJ-IEK3-VSA/quinex.git
 python3 -m spacy download en_core_web_md
