@@ -1,7 +1,6 @@
-
 <a href="https://www.fz-juelich.de/en/ice/ice-2"><img src="https://github.com/FZJ-IEK3-VSA/README_assets/blob/main/JSA-Header.svg?raw=True" alt="Forschungszentrum Juelich Logo" height="70px"></a>
 
-<img src="assets/quinex_logo.svg" height="120" />
+<img src="https://github.com/FZJ-IEK3-VSA/quinex/blob/main/assets/quinex_logo.svg?raw=True" height="120"/>
 
 # Quinex
 
@@ -42,18 +41,19 @@ Like larger, general-purpose LLMs, Quinex is built on transformer models. Howeve
 First, familiarize yourself with the [strengths](#why-use-quinex) and [limitations](#limitations) of quinex. You may also want to read the [FAQ](#faq) section.
 
 Quinex can be used as a **Python library**, via **API**, or in a **web service** to for analyzing scientific literature. See the [usage guide](./docs/01_usage_guide.md) for detailed instructions.
-To use quinex as a **Python library** create a virtual environment (for example, via mamba) and activate it:
+
+To use quinex as a **Python library**, create and activate a virtual environment. Then, install the package via pip:
 ```bash
-mamba create --name "quinex_env" python=3.9 -c conda-forge
-mamba activate quinex_env
-```
-Then, install quinex via pip:
-```bash
-pip install git+https://github.com/FZJ-IEK3-VSA/quinex.git
-python3 -m spacy download en_core_web_md
+pip install quinex
 ```
 
-Then, you can use quinex as follows:
+Finally, download the spaCy pipeline and install dependencies that are not on PyPI:
+```bash
+python3 -m spacy download en_core_web_md
+pip install git+https://github.com/FZJ-IEK3-VSA/llm-chunker.git
+```
+
+Now, you can use quinex as follows:
 ```python
 >>> from quinex import Quinex
 
@@ -158,7 +158,7 @@ If you use quinex in your research, please cite the following paper:
 
 ## License
 
-For the most part, Quinex is licensed under the MIT License. However, there are some exceptions. Please see the [LICENSE](./LICENSE.md) file for details.
+For the most part, Quinex is licensed under the MIT License. However, there are some exceptions. Please see the [LICENSE](./LICENSE) file for details.
 
 
 ## About Us 

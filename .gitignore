@@ -5,9 +5,11 @@
 **/.ipynb_checkpoints
 build/*
 logs/*
+dist/*
 configs/*
 temp/*
 .snakemake/*
+.idea/*
 notes.md
 todo.md
 !*.gitkeep

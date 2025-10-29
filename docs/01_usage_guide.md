@@ -10,7 +10,7 @@ You can use quinex in different ways:
     * Use case 5: [Create plots](./02_usage_guide_python_library.md#use-case-5-create-plots)
 - **API**: 
     * Process texts per [API](./03_usage_guide_api.md#use-quinex-via-api)
-- **Paper processing service** 
+- **Paper processing service (experimental)** 
     * Use case 1: [Demo extraction of quantitative information from text](./04_usage_guide_web_service.md#use-case-1-demo-extraction-of-quantitative-information-from-text)
     * Use case 2: [Process scientific articles](./04_usage_guide_web_service.md#use-case-2-process-scientific-articles) (note that this assumes a SLURM cluster environment)
     * Use case 3: [Analyze extracted information in a dashboard](./04_usage_guide_web_service.md#use-case-3-analyze-extracted-information-in-a-dashboard)

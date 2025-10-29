@@ -24,6 +24,13 @@ Make sure to install quinex with the `[paper_analysis]` extra to install the req
 pip install quinex[paper_analysis]
 ```
 
+You also need to install the following non-PyPI dependencies:
+```bash
+python3 -m spacy download en_core_web_md
+pip install git+https://github.com/jangoepfert/grobid_client_python.git
+pip install git+https://github.com/jangoepfert/s2orc-doc2json.git
+```
+
 ## Setting up the paper processing service
 
 > [!IMPORTANT]

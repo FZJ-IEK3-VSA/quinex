@@ -8,10 +8,16 @@ To use quinex as a **Python library** create a virtual environment (for example,
 mamba create --name "quinex_env" python=3.9 -c conda-forge
 mamba activate quinex_env
 ```
+
 and then install quinex via pip:
 ```bash
-pip install git+https://github.com/FZJ-IEK3-VSA/quinex.git
+pip install quinex
+```
+
+Finally, download the spaCy pipeline and install dependencies that are not on PyPI:
+```bash
 python3 -m spacy download en_core_web_md
+pip install git+https://github.com/FZJ-IEK3-VSA/llm-chunker.git
 ```
 
 ## Use case 1: Extract quantitative information from a text
@@ -75,7 +81,7 @@ By default, quinex extracts all quantities, including imprecise ones (e.g., "sev
 When creating the `Quinex` instance, you can specify to use the `use_cpu=True`, the models to use (e.g., `quantity_model_name="/path/to/model`), disable certain tasks (e.g., `enable_qualifier_extraction=False`), specifiy the max. number of tokens to generate for each question answering step (e.g., `max_new_tokens=50`), which devices to use with how many workers and what batch size, and more. For details, please refer to the docstring of the [`Quinex` class](./src/quinex/inference/extract/pipeline). You can also use presets to define the models and tasks to perform:
 
 ```Python
->>> form quinex.config.presets import models, tasks
+>>> from quinex.config.presets import models, tasks
 >>> quinex = Quinex(**models.tiny, **tasks.full)
 ```
 
@@ -122,14 +128,14 @@ When creating the `Quinex` instance, you can specify to use the `use_cpu=True`, 
 
 Alternatively, you can also use the task preset for extracting only quantities
 ```Python
->>> form quinex.config.presets import models, tasks
+>>> from quinex.config.presets import models, tasks
 >>> quinex = Quinex(**models.tiny, **tasks.quantities_only)
 >>> quantities = quinex("...")
 ```
 
 Or you can keep all tasks enabled and use the get_quantities() method.
 ```Python
->>> form quinex.config.presets import models, tasks
+>>> from quinex.config.presets import models, tasks
 >>> quinex = Quinex()
 >>> quantities = quinex.get_quantities("...")
 ```

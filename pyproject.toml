@@ -6,7 +6,8 @@ authors = [
     {name = "Jan Göpfert"},
 ]
 readme = { file = "README.md", content-type = "text/markdown" }
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -22,9 +23,15 @@ classifiers = [
 ]
 keywords = [
     "quantitative information extraction",
+    "numeric information extraction",
+    "quantititative data extraction",
     "measurement extraction",
-    "information extraction",    
-    "nlp",    
+    "information extraction",
+    "quantities",
+    "measurements",
+    "units",
+    "NLP",
+    "LLM",
 ]
 
 dependencies = [
@@ -40,13 +47,16 @@ dependencies = [
     "protobuf==4.23.4",
     "requests==2.31.0",
     "pandas==2.3.1",
-    "text_processing_utils @ git+https://github.com/FZJ-IEK3-VSA/text-processing-utils.git", 
-    "quinex_utils @ git+https://github.com/FZJ-IEK3-VSA/quinex-utils.git", 
-    "semchunk @ git+https://github.com/FZJ-IEK3-VSA/llm-chunker.git",
+    "text-processing-utils==0.0.0", 
+    "quinex-utils==0.0.0",    
 ]
 
+[project.urls]
+Homepage = "https://github.com/FZJ-IEK3-VSA/quinex"
+Issues = "https://github.com/FZJ-IEK3-VSA/quinex/issues"
+
 [project.optional-dependencies]
-development = [
+dev = [
     "pytest",
     "snakemake==7.32.4",
     "tensorboard==2.15.1",
@@ -64,7 +74,7 @@ api = [
     "uvicorn[standard]",
     "pydantic==2.5.3"
 ]
-paper_analysis = [    
+paper_analysis = [
     "fastapi==0.110.1",
     "uvicorn[standard]",
     "werkzeug==3.0.1",
@@ -74,13 +84,11 @@ paper_analysis = [
     "networkx",
     "pandas",
     "numpy==1.26.3",
-    "grobid_client_python @ git+https://github.com/jangoepfert/grobid_client_python.git",
-    "s2orc-doc2json @ git+https://github.com/jangoepfert/s2orc-doc2json.git",
     "lxml",
     "beautifulsoup4",
     "python-multipart==0.0.20",
 ]
-create_plots = [
+plotting = [
     "scipy==1.11.4",
     "plotly==5.24.1",
     "numpy==1.26.3",
