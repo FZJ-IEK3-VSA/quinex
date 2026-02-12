@@ -1,0 +1,3897 @@
+{
+    "text": "From lab to life: how wearable devices can improve health equity\n\nMedical wearables, non-invasive devices that measure physiological biomarkers, are potentially disruptive and powerful tools to promote health equity at scale. Here we describe our experiences designing, validating, and deploying wearable sensors in vulnerable patient populations to improve health outcomes.\n\nThe Centers for Disease Control and Prevention defines health equity as the \"state in which everyone has a fair and just opportunity to attain their highest level of health\" 1 . Barriers to achieving health equity include poverty, institutionalized racism, environmental factors, and geography. Advances in technology expedited by the COVID-19 pandemic have increased interest in digital health, such as telemedicine, electronic health records, and artificial intelligence, as a tool to address health disparities.\n\nComparatively less focus has been given to a narrower, but fundamental component of the evolving digital health landscape-wearables. Medical wearables are noninvasively connected to the body and measure, store, and in some cases interpret biomarkers of clinical significance. Medical wearables are not confined to hospital settings, and ideally seamlessly coexist in clinical and non-clinical environments, remotely interfacing with the broader healthcare delivery ecosystem 2 . Early wearables gained traction as personal fitness devices, leveraging familiar form factors like watches, wristbands, or rings. The development of alternative, more discrete form factors (e.g., patches), variable mounting locations (e.g., chest), and additional biophysical and biochemical sensing capabilities (e.g., electrocardiogram, blood glucose levels), broadened potential applications in healthcare. Future innovations in this device class are expansive, including therapeutic drug or haptic delivery systems, miniaturization, transient technologies, population-level remote monitoring-enabled disease detection, and incorporation of artificial intelligence 3 .\n\nWearables, in cost-effective embodiments, are uniquely poised to promote health equity at scale, as these devices physically interact with a single patient, often in the lived environment, yet virtually connect this individual to families, caregivers, healthcare providers and their social and healthcare networks more generally. With intention and effort, the biomedical engineering community can steer the field of advanced wearables and flexible bioelectronics toward inclusive, accessible, and powerfully disruptive tools to promote health equity and reduce disparities. In this commentary we will share our experiences and those of others who are building, deploying, and scaling wearable sensors informed by the needs of arguably the most vulnerable patients-neonates and pregnant people-across a wide spectrum of resourced environments, to highlight wearable technology's potential to improve clinical outcomes and promote health equity (Fig. 1 ).\n\nOur team in the Querrey-Simpson Institute of Bioelectronics at Northwestern University, in partnerships with a startup company (Sibel Health), and corporate collaborators (Drager) developed a wireless wearable sensor system providing ICU-grade vital sign monitoring. The system was deployed in programs funded by the National Institutes of Health, the Bill and Melinda Gates Foundation, and Save the Children, to address the unmet challenge of caring for neonates, which is evidenced by a persistently highly mortality rate-with 1 million neonates dying on the first day of life, and 2 million more perishing within the first week of life globally 4 . Though outside the scope of this piece, it bears mentioning that neonatal outcomes vary profoundly, with a disproportionate burden of morbidity and mortality born by low-and middle-income countries (LMICs). Regardless of clinical setting, neonatal vital signs are traditionally collected with cumbersome, wired devices. Such devices are often adapted from those originally intended for adult use, and can result in iatrogenic injury, scarring, and disruption of the therapeutic skin-to-skin contact, known as Kangaroo Care, by a caregiver 5, 6 . Advanced medical wearables, in soft, skin-like formats with capabilities in continuous wireless operation, are uniquely suited to serve their needs.\n\nLimitations of current care informed the development of our system. Key innovations included a wireless, ultrathin, flexible, skinlike engineering design with a miniaturized physical footprint, compromising neither measurement accuracy nor comprehensiveness. Insensor data analytics and real-time continuous data streaming provide access to pertinent biomarkers including heart rate, respiratory rate, pulse oxygenation, and skin temperature 7, 8 . Furthermore, neonatal skin is fragile, requiring careful attention to mechanisms for skin adherence. We developed alternative adhesives and coupling mechanisms, leveraging weak Van der Waals forces to prioritize skin safety, while ensuring functionality and robust skin coupling. Advanced versions enhance skin tolerance through \"holey architectures\" increasing mechanical compliance and stretchability while also wicking moisture away from the skin-device interface, and reducing interface stresses and skin irritation with routine wear and removal 9 . Finally, engineering designs that prolong battery life, enable a reusable and wirelessly rechargeable mode of operation without external ports or receptacles, with low-cost consumables are critically important in scaling hardware solutions from the bench to hospitals, especially in challenging care environments.\n\nOur early field testing on infants as young as 26 weeks (weighing <1500 g) relied upon local, well-resourced tertiary care facilities affiliated with Lurie Children's Hospital and Northwestern Medicine Prentice Women's Hospital. We additionally deployed devices for further validation and usability testing in Aga Khan University, Nairobi (AKU-N), a tertiary healthcare facility in Kenya 10 .\n\nnature communications\n\n(2024) 15:123 | 1\n\nOthers innovating in this emergent market include Neopenda, a public benefit corporation with extensive implementation work in Uganda and Kenya, who developed the neoGuard TM , a foreheadmounted device measuring neonatal vital signs. Laerdal Global Health is a Norwegian based not-for-profit sister company to Laerdal Medical, and markets (among other devices), the NeoBeat, a reusable and consumable-free device which is placed on the abdomen to measure newborn heart rate. Neobeat is functional on wet skin and can facilitate rapid neonatal resuscitation and risk stratification. In addition to general physiological monitoring, others have reported a specialized, low-cost wearable placed on the forehead to non-invasively detect jaundice and personalize phototherapy treatment through a transcutaneous bilirubinometer 11 .\n\nIn related efforts, we translated our experiences to another highly vulnerable health state-pregnancy. High rates of morbidity and mortality during pregnancy continue to occur in the United States and abroad, with more than 80% estimated as preventable 12 . Deepening health disparities underscore the urgency to revolutionize how we approach safety and monitoring of pregnant individuals to ensure equitable care and outcomes. Pregnancy indiscriminately occurs across the spectrum of the well to chronically ill, a broadening age range, and is further defined by progressive physiological changes superimposed on this baseline health. Antepartum and postpartum care occurs in a wide range of variably resourced environments (home, clinics, hospitals). Faced with increasing provider shortages that worsen geographically based inequities, remote patient monitoring with wearables has become increasingly relevant 13 . Finally, monitoring requires capabilities beyond routine vital signs, including measurements of uterine activity and fetal well-being (most often assessed by fetal heart rate, but also fetal electrocardiography and oximetry).\n\nPrinciples of low profile, unobtrusive, yet comprehensive equipment for vital sign monitoring resonate with pregnant patients and staff. We expanded the sensor system to include an integrated monitoring platform using a wirelessly linked collection of three flexible electronic sensors to monitor the pregnant patient's core vitals, uterine, and fetal activity. The sensors are time-synchronized via wireless connectivity and compatible with various low-cost mobile devices. The sensors additionally report advanced biomarkers including continuous cuffless blood pressure, electrohysterography-derived uterine monitoring, and automated body position classification. The system's capacity to comprehensively monitor pregnant patients during labor has been validated via deployment in a large-scale longitudinal study in Zambia, India, and Ghana, of thousands of patients as part of the Limiting Adverse Birth Outcomes in Resource-Limited Settings (LABOR) study (NCT04102644) 14 . Future studies of this cohort are currently ongoing to assess if leveraging large volume datasets can produce population-specific predictive models designed to identify patients at risk of adverse outcomes, informing risk stratification and earlier intervention. InnAccel, an Indian-based company, is also investing in affordable and accessible pregnancy monitoring and has commercialized Fetal Lite, a single, wireless probe placed at the pregnant individual's umbilicus that measures vital signs and fetal heart rate with remote connectivity and streaming capabilities, conveniently housed in an easily portable laptop-sized bag.\n\nAdvanced wearable technologies can be designed with capabilities well suited to overcome historical barriers to equitable global distribution and their meaningful use. It is estimated that more than 90% of medical devices used in LMICs are imported, having been neither designed, validated, nor produced locally. Sustainable use is further hampered by more than a third of these devices being rendered unusable by insufficient training, accessories, or incomplete supply chains 15 . However, wearables are intentionally designed to operate with equal effectiveness and accuracy in the clinic and home, with robust, ruggedized designs functional in various settings, including those often encountered in remote locations and/or LMICs (humidity, dust, extreme temperatures), in contrast to traditional medical devices used in sterile, controlled healthcare environments. In our experience, more than 5000 systems described herein have been deployed in 22 countries, used by 15,000 patients (including 500 neonates), aged 26 weeks to 98 years. Though tempting to focus efforts on scaling more simple devices, we hope our work and others demonstrate the highest levels of technological innovation belong and even thrive in low resource settings through intentional engineering and strategic partnerships. The clinical experiences of wearable technologies are still in the early stages, and a stepwise approach is warranted, defined by intentional and patient-informed engineering, rigorous validation of device accuracy, and pilot implementation studies. Ultimately, wearables should be expected to demonstrate a measurable improvement in health.\n\nWe note, however, the trajectory of medical wearables to promote health equity is not inevitable. To the contrary, the false assumption of device benevolence and data objectivity can perpetuate harm and generational injustices. For example, photoplethysmography (PPG)derived heart rate and oxygen saturation, an affordable approach found in many devices, relies on green light signaling, which is notoriously inaccurate in patients with darker skin 16, 17 . If measurement inaccuracies of wearable devices are disproportionately borne by historically marginalized populations, research, machine learning, or artificial intelligence built on these measures may perpetuate systemic racism and deepen health inequities, rather than uplift these communities. Another example, the continuous glucose monitor (CGM), is arguably one of few medical wearables with unequivocal demonstration of superior patient outcomes resulting from use, including improved glycemic control, quality of life, and morbidity among patients with Type 1 Diabetes with broad endorsements from guiding institutions such as the American Diabetes Association, and highlights disparities in access and use. Historically marginalized groups are less likely to use CGM at baseline or initiate use, even after controlling for patient age, disease, and socioeconomic factors 18 . Finally, generated data must be judiciously curated, interpreted, and evaluated to prevent reinforcing racial stereotypes or hierarchies. Consideration of population-specific comfort and amenability to use wearables due to concerns of data security and privacy, though outside the scope of this commentary, will be paramount to ensure devices and technologies at their core do not increase vulnerabilities. The technical infrastructure and digital platforms housing data derived from wearables cannot be an afterthought and should be built and regulated in parallel with their companion devices. Transparent information and formalized guidelines about best practices related to data ownership, storage, accessibility, and duration of data retention will all be essential to maintain user trust in wearables and algorithms derived from the data.\n\nThese challenges are not insurmountable; engineers, clinicians, scientists, and early adopters can actively work to promote tenets of equity and inclusion directly into the design process. Wearables can promote health equity at the individual patient level by prioritizing accurate and reproducible capture of physiology independent of the characteristics of the user, such as skin color, weight, or gender. Transparent validation testing in diverse patient populations, in both optimal laboratory conditions and real-world environments, will ensure accuracy of monitoring across the full range of patient characteristics 17, 19 . In order to achieve meaningful impacts, technologies must obtain the relevant regulatory approvals (e.g., CE Mark or FDA clearance) and be designed specifically to enable scaled manufacturing at an affordable cost for all patients, independent of socioeconomic status. Formalized regulation of devices helps to ensure safe deployment and appropriate clinical application. Achievement of these clearances requires programmatic and institutional preparation, rigorous and transparent demonstration of system safety, device accuracy in alignment with industry standards, cybersecurity, and comprehensive risk assessments. Although labor intensive and expensive, these clearances are critical to maintaining patient and provider confidence, integrity of wearables and the data collected by them.\n\nA vast majority of morbidity and mortality, particularly among the vulnerable patient populations highlighted in this perspective, is preventable with early detection and intervention. Wearables offer a unique opportunity to redefine what biomarkers we measure, how we capture this information, where data is collected, and the final frontier of how we make this physiological data actionable. Wearables are a unique part of the digital health revolution because they rely on a physical connection to a patient but can remotely connect that person to a vast healthcare infrastructure. Advanced wearables need not be overly complicated nor costly. To the contrary, prioritizing elegant, simple, and miniaturized designs through innovative engineering approaches will maximize their ability to promote health equity.\n\n(2024) 15:123 |\n\n\nacknowledgement\nMaterials Science and Engineering, Northwestern University, Evanston, IL 60208, USA. 6 Department of Neurological Surgery, Northwestern University Feinberg School of Medicine, Chicago, IL 60611, USA.e-mail: jrogers@northwestern.edu\n\n\nAcknowledgements\nThe authors would like to acknowledge Kelly Cao and Halie Kwon for their assistance with figure design.\n\n\nReporting summary\nFurther information on research design is available in the Nature Portfolio Reporting Summary linked to this article.Jessica R. Walter 1 , Shuai Xu \n\n\nAuthor contributions\nAll authors contributed to the article conception. J.R.W. was responsible for drafting the initial manuscript. S.X. and J.A.R. provided critical revisions to the manuscript. All authors approve of the final version of the manuscript.\n\n\nCompeting interests\nJ.A.R. is a co-founder and advisor to Sibel Health and holds patents associated with this company. S.X. is a co-founder of Sibel Health with equity interest and royalty interest in patents associated with technology. J.R.W.'s spouse has equity interest in Sibel Health. The authors declare no additional competing interests.\n\n",
+    "metadata": {
+        "provenance": {
+            "fulltext_source": {
+                "sha256_hash": "99433123cb252d7dc14aa8aff4c47c80d2026c709ecf0bba236e4198f132e7e9"
+            },
+            "quantitative_statements_annotations": {
+                "models": {
+                    "quantity_model": "cqe",
+                    "context_model": "cqe"
+                }
+            }
+        },
+        "bibliographic": {
+            "title": "From lab to life: how wearable devices can improve health equity",
+            "publication_year": 2024,
+            "citation": "Walter, J.R., Xu, S. & Rogers, J.A. From lab to life: how wearable devices can improve health equity. Nat Commun 15, 123 (2024). https://doi.org/10.1038/s41467-023-44634-9",
+            "doi": "10.1038/s41467-023-44634-9",
+            "license": "https://creativecommons.org/licenses/by/4.0/",
+            "authors": [
+                {
+                    "first": "Jessica",
+                    "middle": [
+                        "R"
+                    ],
+                    "last": "Walter",
+                    "suffix": "",
+                    "affiliation": {},
+                    "email": ""
+                },
+                {
+                    "first": "Shuai",
+                    "middle": [],
+                    "last": "Xu",
+                    "suffix": "",
+                    "affiliation": {},
+                    "email": ""
+                },
+                {
+                    "first": "John",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Rogers",
+                    "suffix": "",
+                    "affiliation": {},
+                    "email": ""
+                }
+            ]
+        }
+    },
+    "annotations": {
+        "title": [
+            {
+                "start": 0,
+                "end": 64
+            }
+        ],
+        "abstract": [
+            {
+                "start": 66,
+                "end": 66
+            }
+        ],
+        "body_text": [
+            {
+                "start": 66,
+                "end": 15777
+            }
+        ],
+        "back_matter": [
+            {
+                "start": 15777,
+                "end": 16923
+            }
+        ],
+        "section_header": [
+            {
+                "start": 15778,
+                "end": 15793
+            },
+            {
+                "start": 16028,
+                "end": 16044
+            },
+            {
+                "start": 16151,
+                "end": 16168
+            },
+            {
+                "start": 16320,
+                "end": 16340
+            },
+            {
+                "start": 16577,
+                "end": 16596
+            }
+        ],
+        "citations": [
+            {
+                "start": 550,
+                "end": 551,
+                "text": "1",
+                "ref_id": "BIBREF0"
+            },
+            {
+                "start": 1367,
+                "end": 1368,
+                "text": "2",
+                "ref_id": "BIBREF1"
+            },
+            {
+                "start": 2039,
+                "end": 2040,
+                "text": "3",
+                "ref_id": "BIBREF2"
+            },
+            {
+                "start": 3648,
+                "end": 3649,
+                "text": "4",
+                "ref_id": "BIBREF3"
+            },
+            {
+                "start": 4191,
+                "end": 4193,
+                "text": "5,",
+                "ref_id": "BIBREF4"
+            },
+            {
+                "start": 4194,
+                "end": 4195,
+                "text": "6",
+                "ref_id": "BIBREF5"
+            },
+            {
+                "start": 4790,
+                "end": 4792,
+                "text": "7,",
+                "ref_id": "BIBREF6"
+            },
+            {
+                "start": 4793,
+                "end": 4794,
+                "text": "8",
+                "ref_id": "BIBREF7"
+            },
+            {
+                "start": 5347,
+                "end": 5348,
+                "text": "9",
+                "ref_id": "BIBREF8"
+            },
+            {
+                "start": 6054,
+                "end": 6056,
+                "text": "10",
+                "ref_id": "BIBREF9"
+            },
+            {
+                "start": 6924,
+                "end": 6926,
+                "text": "11",
+                "ref_id": "BIBREF10"
+            },
+            {
+                "start": 7183,
+                "end": 7185,
+                "text": "12",
+                "ref_id": "BIBREF11"
+            },
+            {
+                "start": 7843,
+                "end": 7845,
+                "text": "13",
+                "ref_id": "BIBREF12"
+            },
+            {
+                "start": 9049,
+                "end": 9051,
+                "text": "14",
+                "ref_id": "BIBREF13"
+            },
+            {
+                "start": 10165,
+                "end": 10167,
+                "text": "15",
+                "ref_id": "BIBREF14"
+            },
+            {
+                "start": 11780,
+                "end": 11783,
+                "text": "16,",
+                "ref_id": "BIBREF15"
+            },
+            {
+                "start": 11784,
+                "end": 11786,
+                "text": "17",
+                "ref_id": "BIBREF16"
+            },
+            {
+                "start": 12669,
+                "end": 12671,
+                "text": "18",
+                "ref_id": "BIBREF17"
+            },
+            {
+                "start": 14142,
+                "end": 14145,
+                "text": "17,",
+                "ref_id": "BIBREF16"
+            },
+            {
+                "start": 14146,
+                "end": 14148,
+                "text": "19",
+                "ref_id": "BIBREF18"
+            }
+        ],
+        "figure_refs": [
+            {
+                "start": 2994,
+                "end": 2995,
+                "text": "1",
+                "ref_id": "FIGREF0"
+            }
+        ],
+        "table_refs": [],
+        "equation_refs": [],
+        "quantitative_statements": [
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 525,
+                        "end": 548,
+                        "text": "highest level of health",
+                        "curation": []
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": []
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "1"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 550,
+                        "end": 551,
+                        "text": "1",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:30:42+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": []
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": []
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "1"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 2994,
+                        "end": 2995,
+                        "text": "1",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:30:47+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 3455,
+                        "end": 3463,
+                        "text": "neonates",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:31:14+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:32:02+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1000000.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "1 million"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "mortality rate-with neonate",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 3529,
+                        "end": 3538,
+                        "text": "1 million",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:31:16+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 3455,
+                        "end": 3463,
+                        "text": "neonates",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:31:41+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:31:57+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 2000000.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "2 million"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 3584,
+                        "end": 3593,
+                        "text": "2 million",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:31:35+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 3977,
+                        "end": 3984,
+                        "text": "devices",
+                        "curation": []
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": []
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 6.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "6"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 4194,
+                        "end": 4195,
+                        "text": "6",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:32:20+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 5670,
+                        "end": 5709,
+                        "text": "early field testing on infants as young",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:32:49+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable",
+                                "timestamp": "2025-12-18T18:33:45+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 26.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "26"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "weeks",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 5713,
+                        "end": 5721,
+                        "text": "26 weeks",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:32:39+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 5670,
+                        "end": 5709,
+                        "text": "early field testing on infants as young",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "debatable",
+                                "timestamp": "2025-12-18T18:33:32+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:33:19+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": true,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1500.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "1500"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "g",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 5733,
+                        "end": 5739,
+                        "text": "1500 g",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:33:09+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 6090,
+                        "end": 6096,
+                        "text": "15:123",
+                        "curation": []
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": []
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "1"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 6099,
+                        "end": 6100,
+                        "text": "1",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:34:00+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 7033,
+                        "end": 7087,
+                        "text": "High rates of morbidity and mortality during pregnancy",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2026-01-05T11:02:09+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "debatable, mixed up entity with property",
+                                "timestamp": "2026-01-05T11:02:08+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": true,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 80.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "80"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "%",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 7154,
+                        "end": 7157,
+                        "text": "80%",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:34:21+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 8295,
+                        "end": 8323,
+                        "text": "wirelessly linked collection",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:35:38+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:35:45+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 3.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "three"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "flexible electronic sensors",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 8327,
+                        "end": 8360,
+                        "text": "three flexible electronic sensors",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:35:48+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 8745,
+                        "end": 8820,
+                        "text": "system's capacity to comprehensively monitor pregnant patients during labor",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable",
+                                "timestamp": "2025-12-18T18:36:39+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:36:50+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "range",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1000.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "thousands"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "of patients",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    },
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 10000.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "thousands"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "of patients",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 8923,
+                        "end": 8944,
+                        "text": "thousands of patients",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:35:59+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 9893,
+                        "end": 9922,
+                        "text": "medical devices used in LMICs",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:37:21+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:37:23+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": true,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 90.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "90"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "%",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 9886,
+                        "end": 9889,
+                        "text": "90%",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:37:24+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 10000,
+                        "end": 10015,
+                        "text": "Sustainable use",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:38:58+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:39:06+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": true,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 0.3333333333333333,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "third"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "% device",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10051,
+                        "end": 10056,
+                        "text": "third",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "missing of these devices",
+                                "timestamp": "2025-12-18T18:38:00+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 10000,
+                        "end": 10015,
+                        "text": "Sustainable use",
+                        "curation": []
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": []
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 15.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "15"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10165,
+                        "end": 10167,
+                        "text": "15",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:39:11+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:39:57+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:39:56+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": true,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 5000.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "5000"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "systems",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10585,
+                        "end": 10597,
+                        "text": "5000 systems",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:39:41+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:40:15+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:40:12+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 22.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "22"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "countries",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10637,
+                        "end": 10649,
+                        "text": "22 countries",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:40:14+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:40:38+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:40:35+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 15000.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "15,000"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "patients",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10659,
+                        "end": 10674,
+                        "text": "15,000 patients",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:40:32+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:40:52+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable, empty count okay",
+                                "timestamp": "2025-12-18T18:40:49+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 500.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "500"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "neonates",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10686,
+                        "end": 10698,
+                        "text": "500 neonates",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:40:46+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:41:24+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:41:21+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 26.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "26"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "weeks",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10706,
+                        "end": 10714,
+                        "text": "26 weeks",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:41:20+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:41:27+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:41:28+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 98.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "98"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "years",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 10718,
+                        "end": 10726,
+                        "text": "98 years",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:41:30+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:42:44+01:00"
+                            }
+                        ]
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "debatable",
+                                "timestamp": "2025-12-18T18:43:24+01:00"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 1.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "one"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "few medical wearables with unequivocal demonstration of superior patient outcomes resulting from use",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 12153,
+                        "end": 12260,
+                        "text": "one of few medical wearables with unequivocal demonstration of superior patient outcomes resulting from use",
+                        "curation": [
+                            {
+                                "approve": true,
+                                "comment": "debatable",
+                                "timestamp": "2025-12-18T18:43:16+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            },
+            {
+                "claim": {
+                    "entity": {
+                        "is_implicit": false,
+                        "start": 15778,
+                        "end": 15793,
+                        "text": "acknowledgement",
+                        "curation": []
+                    },
+                    "property": {
+                        "is_implicit": false,
+                        "start": 15895,
+                        "end": 15915,
+                        "text": "Neurological Surgery",
+                        "curation": []
+                    },
+                    "quantity": {
+                        "normalized": {
+                            "type": {
+                                "class": "single_quantity",
+                                "curation": []
+                            },
+                            "is_relative": {
+                                "bool": false,
+                                "curation": []
+                            },
+                            "individual_quantities": {
+                                "normalized": [
+                                    {
+                                        "value": {
+                                            "normalized": {
+                                                "numeric_value": 6.0,
+                                                "is_imprecise": false,
+                                                "modifiers": "=",
+                                                "is_mean": null,
+                                                "is_median": null
+                                            },
+                                            "text": "6"
+                                        },
+                                        "unit": {
+                                            "text": {
+                                                "prefixed": "",
+                                                "suffixed": "Department",
+                                                "ellipsed": ""
+                                            },
+                                            "normalized": []
+                                        }
+                                    }
+                                ],
+                                "curation": []
+                            }
+                        },
+                        "is_implicit": false,
+                        "start": 15879,
+                        "end": 15891,
+                        "text": "6 Department",
+                        "curation": [
+                            {
+                                "approve": false,
+                                "comment": "",
+                                "timestamp": "2025-12-18T18:43:35+01:00"
+                            }
+                        ]
+                    }
+                },
+                "qualifiers": {
+                    "temporal_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "year": null
+                        }
+                    },
+                    "spatial_scope": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": {
+                            "country": null,
+                            "country_code": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "osm_place_id": null
+                        }
+                    },
+                    "reference": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": [],
+                        "normalized": []
+                    },
+                    "method": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    },
+                    "qualifier": {
+                        "start": 0,
+                        "end": 0,
+                        "text": "",
+                        "is_implicit": true,
+                        "curation": []
+                    }
+                },
+                "statement_classification": {
+                    "type": {
+                        "class": "observation",
+                        "curation": []
+                    },
+                    "rational": {
+                        "class": "arbitrary",
+                        "curation": []
+                    },
+                    "system": {
+                        "class": "model",
+                        "curation": []
+                    }
+                }
+            }
+        ]
+    },
+    "bibliography": {
+        "BIBREF0": {
+            "ref_id": "b0",
+            "title": "What is Health Equity",
+            "authors": [],
+            "year": 2022,
+            "venue": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF1": {
+            "ref_id": "b1",
+            "title": "Translational gaps and opportunities for medical wearables in digital health",
+            "authors": [
+                {
+                    "first": "S",
+                    "middle": [],
+                    "last": "Xu",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [],
+                    "last": "Kim",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "R"
+                    ],
+                    "last": "Walter",
+                    "suffix": ""
+                },
+                {
+                    "first": "R",
+                    "middle": [],
+                    "last": "Ghaffari",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Rogers",
+                    "suffix": ""
+                }
+            ],
+            "year": 2022,
+            "venue": "Sci. Transl. Med",
+            "volume": "14",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF2": {
+            "ref_id": "b2",
+            "title": "Skin sensors are the future of health care",
+            "authors": [
+                {
+                    "first": "S",
+                    "middle": [],
+                    "last": "Xu",
+                    "suffix": ""
+                },
+                {
+                    "first": "A",
+                    "middle": [],
+                    "last": "Jayaraman",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Rogers",
+                    "suffix": ""
+                }
+            ],
+            "year": 2019,
+            "venue": "Nature",
+            "volume": "571",
+            "issue": "",
+            "pages": "319--321",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF3": {
+            "ref_id": "b3",
+            "title": "Global, regional, and national levels and trends in under-5 mortality between 1990 and 2015, with scenario-based projections to 2030: a systematic analysis by the UN Inter-agency Group for Child Mortality Estimation",
+            "authors": [
+                {
+                    "first": "D",
+                    "middle": [],
+                    "last": "You",
+                    "suffix": ""
+                }
+            ],
+            "year": 2015,
+            "venue": "Lancet",
+            "volume": "386",
+            "issue": "",
+            "pages": "2275--2286",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF4": {
+            "ref_id": "b4",
+            "title": "There were more wires than him': the potential for wireless patient monitoring in neonatal intensive care",
+            "authors": [
+                {
+                    "first": "O",
+                    "middle": [],
+                    "last": "Bonner",
+                    "suffix": ""
+                },
+                {
+                    "first": "K",
+                    "middle": [],
+                    "last": "Beardsall",
+                    "suffix": ""
+                },
+                {
+                    "first": "N",
+                    "middle": [],
+                    "last": "Crilly",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [],
+                    "last": "Lasenby",
+                    "suffix": ""
+                }
+            ],
+            "year": 2017,
+            "venue": "BMJ Innov",
+            "volume": "3",
+            "issue": "",
+            "pages": "12--18",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF5": {
+            "ref_id": "b5",
+            "title": "Presence and pattern of scarring in children born very preterm",
+            "authors": [
+                {
+                    "first": "A",
+                    "middle": [
+                        "C"
+                    ],
+                    "last": "Tottman",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "M"
+                    ],
+                    "last": "Alsweiler",
+                    "suffix": ""
+                },
+                {
+                    "first": "F",
+                    "middle": [
+                        "H"
+                    ],
+                    "last": "Bloomfield",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "E"
+                    ],
+                    "last": "Harding",
+                    "suffix": ""
+                },
+                {
+                    "first": "P",
+                    "middle": [
+                        "S"
+                    ],
+                    "last": "Team",
+                    "suffix": ""
+                }
+            ],
+            "year": 2017,
+            "venue": "Arch. Dis. Child Fetal Neonatal",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "other_ids": {
+                "DOI": [
+                    "10.1136/archdischild-2016-311999"
+                ]
+            },
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF6": {
+            "ref_id": "b6",
+            "title": "wireless epidermal electronic systems with in-sensor analytics for neonatal intensive care",
+            "authors": [
+                {
+                    "first": "H",
+                    "middle": [
+                        "U"
+                    ],
+                    "last": "Chung",
+                    "suffix": ""
+                }
+            ],
+            "year": 2019,
+            "venue": "Science",
+            "volume": "363",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF7": {
+            "ref_id": "b7",
+            "title": "Skin-interfaced biosensors for advanced wireless physiological monitoring in neonatal and pediatric intensive-care units",
+            "authors": [
+                {
+                    "first": "H",
+                    "middle": [
+                        "U"
+                    ],
+                    "last": "Chung",
+                    "suffix": ""
+                }
+            ],
+            "year": 2020,
+            "venue": "Nat. Med",
+            "volume": "26",
+            "issue": "",
+            "pages": "418--429",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF8": {
+            "ref_id": "b8",
+            "title": "Skin-integrated devices with soft, holey architectures for wireless physiological monitoring, with applications in the neonatal intensive care unit",
+            "authors": [
+                {
+                    "first": "S",
+                    "middle": [
+                        "S"
+                    ],
+                    "last": "Kwak",
+                    "suffix": ""
+                }
+            ],
+            "year": 2021,
+            "venue": "Adv. Mater",
+            "volume": "33",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF9": {
+            "ref_id": "b9",
+            "title": "Evaluation of Sibel's Advanced Neonatal Epidermal (ANNE) wireless continuous physiological monitor in Nairobi, Kenya",
+            "authors": [
+                {
+                    "first": "J",
+                    "middle": [],
+                    "last": "Coleman",
+                    "suffix": ""
+                }
+            ],
+            "year": 2022,
+            "venue": "PLoS ONE",
+            "volume": "17",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF10": {
+            "ref_id": "b10",
+            "title": "Neonatal wearable device for colorimetry-based real-time detection of jaundice with simultaneous sensing of vitals",
+            "authors": [
+                {
+                    "first": "G",
+                    "middle": [],
+                    "last": "Inamori",
+                    "suffix": ""
+                }
+            ],
+            "year": 2021,
+            "venue": "Sci. Adv",
+            "volume": "7",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF11": {
+            "ref_id": "b11",
+            "title": "Maternal mortality in the United States: trends and opportunities for prevention",
+            "authors": [
+                {
+                    "first": "S",
+                    "middle": [],
+                    "last": "Wang",
+                    "suffix": ""
+                },
+                {
+                    "first": "K",
+                    "middle": [
+                        "M"
+                    ],
+                    "last": "Rexrode",
+                    "suffix": ""
+                },
+                {
+                    "first": "A",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Florio",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "W"
+                    ],
+                    "last": "Rich-Edwards",
+                    "suffix": ""
+                },
+                {
+                    "first": "J",
+                    "middle": [
+                        "E"
+                    ],
+                    "last": "Chavarro",
+                    "suffix": ""
+                }
+            ],
+            "year": 2023,
+            "venue": "Annu. Rev. Med",
+            "volume": "74",
+            "issue": "",
+            "pages": "199--216",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF12": {
+            "ref_id": "b12",
+            "title": "Community-informed models of perinatal and reproductive health services provision: a justice-centered paradigm toward equity among Black birthing communities",
+            "authors": [
+                {
+                    "first": "Z",
+                    "middle": [],
+                    "last": "Julian",
+                    "suffix": ""
+                }
+            ],
+            "year": 2020,
+            "venue": "Semin. Perinatol",
+            "volume": "44",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF13": {
+            "ref_id": "b13",
+            "title": "Comprehensive pregnancy monitoring with a network of wireless, soft, and flexible sensors in high-and low-resource health settings",
+            "authors": [
+                {
+                    "first": "D",
+                    "middle": [],
+                    "last": "Ryu",
+                    "suffix": ""
+                }
+            ],
+            "year": 2021,
+            "venue": "Proc. Natl Acad. Sci. USA",
+            "volume": "118",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF14": {
+            "ref_id": "b14",
+            "title": "Design of health care technologies for the developing world",
+            "authors": [
+                {
+                    "first": "R",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Malkin",
+                    "suffix": ""
+                }
+            ],
+            "year": 2007,
+            "venue": "Annu. Rev. Biomed. Eng",
+            "volume": "9",
+            "issue": "",
+            "pages": "567--587",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF15": {
+            "ref_id": "b15",
+            "title": "Racial bias in pulse oximetry measurement",
+            "authors": [
+                {
+                    "first": "M",
+                    "middle": [
+                        "W"
+                    ],
+                    "last": "Sjoding",
+                    "suffix": ""
+                },
+                {
+                    "first": "R",
+                    "middle": [
+                        "P"
+                    ],
+                    "last": "Dickson",
+                    "suffix": ""
+                },
+                {
+                    "first": "T",
+                    "middle": [
+                        "J"
+                    ],
+                    "last": "Iwashyna",
+                    "suffix": ""
+                },
+                {
+                    "first": "S",
+                    "middle": [
+                        "E"
+                    ],
+                    "last": "Gay",
+                    "suffix": ""
+                },
+                {
+                    "first": "T",
+                    "middle": [
+                        "S"
+                    ],
+                    "last": "Valley",
+                    "suffix": ""
+                }
+            ],
+            "year": 2020,
+            "venue": "N. Engl. J. Med",
+            "volume": "383",
+            "issue": "",
+            "pages": "2477--2478",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF16": {
+            "ref_id": "b16",
+            "title": "Influence of skin type and wavelength on light wave reflectance",
+            "authors": [
+                {
+                    "first": "B",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Fallow",
+                    "suffix": ""
+                },
+                {
+                    "first": "T",
+                    "middle": [],
+                    "last": "Tarumi",
+                    "suffix": ""
+                },
+                {
+                    "first": "H",
+                    "middle": [],
+                    "last": "Tanaka",
+                    "suffix": ""
+                }
+            ],
+            "year": 2013,
+            "venue": "J. Clin. Monit. Comput",
+            "volume": "27",
+            "issue": "",
+            "pages": "313--317",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF17": {
+            "ref_id": "b17",
+            "title": "Continuous glucose monitors and virtual care in high-risk, racial and ethnic minority populations: toward promoting health equity",
+            "authors": [
+                {
+                    "first": "E",
+                    "middle": [
+                        "A"
+                    ],
+                    "last": "Vrany",
+                    "suffix": ""
+                }
+            ],
+            "year": 2023,
+            "venue": "Front. Endocrinol",
+            "volume": "14",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        },
+        "BIBREF18": {
+            "ref_id": "b18",
+            "title": "The wrist is not the brain: estimation of sleep by clinical and consumer wearable actigraphy devices is impacted by multiple patient-and device-specific factors",
+            "authors": [
+                {
+                    "first": "R",
+                    "middle": [],
+                    "last": "Danzig",
+                    "suffix": ""
+                },
+                {
+                    "first": "M",
+                    "middle": [],
+                    "last": "Wang",
+                    "suffix": ""
+                },
+                {
+                    "first": "A",
+                    "middle": [],
+                    "last": "Shah",
+                    "suffix": ""
+                },
+                {
+                    "first": "L",
+                    "middle": [
+                        "M"
+                    ],
+                    "last": "Trotti",
+                    "suffix": ""
+                }
+            ],
+            "year": 2020,
+            "venue": "J. Sleep Res",
+            "volume": "29",
+            "issue": "",
+            "pages": "",
+            "other_ids": {},
+            "num": null,
+            "urls": [],
+            "raw_text": "",
+            "links": null
+        }
+    },
+    "figures": {
+        "FIGREF0": {
+            "text": "Fig. 1 | Application of advanced wearable devices for comprehensive monitoring of vulnerable patients at scale. Patient centered engineering and inclusive device design promote broad validation and various use cases. Deployment of lowprofile sensors capable of comprehensive monitoring can encourage use in various vulnerable patient populations. Sensors can monitor an individual patient, producing physiological biomarkers for both personal and provider review in clinical and home environments. Low cost and reusable sensors facilitate scale.",
+            "coords": "2,39.69,473.44,243.92,6.92;2,39.69,483.42,255.08,6.94;2,39.69,493.73,255.20,6.55;2,39.69,503.71,255.12,6.55;2,306.14,473.83,247.08,6.55;2,306.14,483.81,254.81,6.55;2,306.14,493.73,223.26,6.55;2,54.48,113.16,491.98,351.61",
+            "num": null,
+            "uris": null,
+            "type_str": "figure",
+            "fig_num": "1"
+        }
+    },
+    "tables": {},
+    "fulltext_available": true,
+    "_id": null
+}
