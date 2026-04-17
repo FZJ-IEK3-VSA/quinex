@@ -6,7 +6,7 @@
 
 ***quinex*** *(**qu**antitative **in**formation **ex**traction)* is a Python library for extracting and analyzing quantitative information from text. It is designed to extract quantities, entities, properties and other measurement context from text. Quinex is domain-agnostic and can power a wide range of applications, such as screening of scientific literature or quantitative search.
 
-Quinex performs **quantity span identification** and **measurement context extraction**. Quantity span identification is the task of identifying quantities in text. This task closely relates to named entity recognition and thus can be framed as sequence labeling task. Measurement context extraction is the task of identifying the measured entity, property, and other measurement context for a given quantity. Additionally, quantities are normalized to a standardized form and the quantitative statements are classified into different types (e.g., specification, goal, observation, etc.).
+Quinex performs **quantity span identification** and **measurement context extraction**. Quantity span identification is the task of identifying quantities in text. This task closely relates to named entity recognition and thus can be framed as sequence labeling task. Measurement context extraction is the task of identifying the measured entity, property, and other measurement context for a given quantity. Additionally, quantities are normalized to a standardized form and units are linked to the QUDT ontology.
 
 ### Features
 - Extract all **quantities** in a given text (optionally also imprecise quantities, e.g., “several turbines”)
@@ -28,7 +28,7 @@ Furthermore, Quinex includes an experimental web service that shows extracted in
 ### Related publications
 
 Quinex is described in detail in the following article: 
-*"Quinex: Quantitative Information Extraction from Text using Open and Lightweight LLMs"* (published soon). Furthermore, the heuristic creation of training data is described in [*"Wiki-Quantities and Wiki-Measurements: Datasets of quantities and their measurement context from Wikipedia"* (2025)](https://doi.org/10.1038/s41597-025-05499-3). For a review of the field of quantitative information extraction pre-ChatGPT, see [*"Measurement Extraction with Natural Language Processing: A Review"* (2022)](https://doi.org/10.18653/v1/2022.findings-emnlp.161).
+[*"Quinex: Quantitative information extraction from text using open and lightweight LLMs"* (2026)](https://doi.org/10.1016/j.xinn.2026.101391). Furthermore, the heuristic creation of training data is described in [*"Wiki-Quantities and Wiki-Measurements: Datasets of quantities and their measurement context from Wikipedia"* (2025)](https://doi.org/10.1038/s41597-025-05499-3). For a review of the field of quantitative information extraction pre-ChatGPT, see [*"Measurement Extraction with Natural Language Processing: A Review"* (2022)](https://doi.org/10.18653/v1/2022.findings-emnlp.161).
 
 
 ## Why use quinex?
@@ -128,8 +128,8 @@ For more examples, see the [usage guide](./docs/01_usage_guide.md) and the [exam
 Quinex uses two main components: a quantity span identification model and a measurement context extraction model. Both models are based on the transformer architecture and are fine-tuned on a large dataset tailored for their respective tasks. Quantity span identification is the task of identifying quantity spans in text. This task closely relates to named entity recognition and thus is framed as a sequence labeling task. Measurement context extraction is the task of identifying the measured entity, property and other measurement context for a given quantity. We frame this task as multi-turn generative question answering. Quantities are normalized using an efficient rule-based parser.
 
 ### How accurate is quinex?
-Quinex achieves state-of-the-art F1 scores of 96.3% for identifying quantities, 82.5% for extracting the measured entities, and 87.3% for extracting the measured properties  when evaluated on the test set using the larger model variants ([quinex-quantity-v0-124M](https://huggingface.co/JuelichSystemsAnalysis/quinex-quantity-v0-124M) +
-[quinex-context-v0-783M](https://huggingface.co/JuelichSystemsAnalysis/quinex-context-v0-783M)). Considering alternative correct answers, the overall accuracy on the test set for quantity span identification and measurement context ectraction is 98.1% and 90.1%, respectively. The macro-averaged F1 over all qualifier classes is 90.5%. However, note that abstaining is often the correct answer for qualifiers. Evaluating quantity span identification and measurement extraction end-to-end on four scientific publications from different domains, Quinex achieves entity-level accuracies of 92.0%, 81.8%, and 79.3% in identifying quantities, measured entities, and properties, respectively. Primarily, quantities with "single" as the value (e.g., "single-gene") and imprecise quantities (e.g., "multi-view") were missed. For correctly identified quantities, measured entities and properties are identified with 86.8% and 84.3% accuracy, respectively. Qualifiers are identified with 77% accuracy for temporal scopes, 76% for spatial scopes, 80% for references, 83% for determination methods, and 56% for other not-categorized qualifiers. All qualifiers are correctly extracted together for 34% of quantitative statements. The entity, property, and quantity are all correctly extracted for 70% of quantitative statements, or 75% for statements with correctly identified quantities. Please refer to the publication for more information (published soon).
+Quinex achieves state-of-the-art F1 scores of 96.3% for identifying quantities, 82.5% for extracting the measured entities, and 87.3% for extracting the measured properties when evaluated on the test set using the larger model variants ([quinex-quantity-v0-124M](https://huggingface.co/JuelichSystemsAnalysis/quinex-quantity-v0-124M) +
+[quinex-context-v0-783M](https://huggingface.co/JuelichSystemsAnalysis/quinex-context-v0-783M)). Considering alternative correct answers, the F1 score for quantity span identification is 98.1% and the overall accuracy for measurement context extraction is 90.1%. The macro-averaged F1 over all qualifier classes is 90.5%. However, note that abstaining is often the correct answer for qualifiers. Evaluating quantity span identification and measurement extraction end-to-end on four scientific publications from different domains, Quinex achieves entity-level accuracies of 92.0%, 81.8%, and 79.3% in identifying quantities, measured entities, and properties, respectively. Primarily, quantities with "single" as the value (e.g., "single-gene") and imprecise quantities (e.g., "multi-view") were missed. Quantities without noun or adjectival units (i.e., counts and physical quantities) are extracted with 96.7% accuracy. For correctly identified quantities, measured entities and properties are identified with 86.8% and 84.3% accuracy, respectively. Qualifiers are identified with 77% accuracy for temporal scopes, 76% for spatial scopes, 80% for references, 83% for determination methods, and 56% for other not-categorized qualifiers. All qualifiers are correctly extracted together for 34% of quantitative statements. The entity, property, and quantity are all correctly extracted for 70% of quantitative statements, or 75% for statements with correctly identified quantities. Please refer to the publication for more information (published soon).
 
 ### For which domains can I use quinex?
 Quinex is domain-agnostic and can be used for many domains. However, as the training data is currently biased towards scientific texts and Wikipedia articles, other text genres (e.g., news articles, social media posts, song lyrics, etc.) may not be processed as accurately. The training data is also biased towards hydrogen technologies, Covid-19 R0 values, supercritical temperatures of superconductors, and polymer synthesis. We aim to continuously expand the training data based on user feedback and contributions. If you are interested in contributing training data, please reach out to us.
@@ -148,11 +148,13 @@ If you have further questions or feedback, please reach out to us.
 If you use quinex in your research, please cite the following paper:
 
 ```bibtex
-@article{quinex2025,
-    title = {{Quinex: Quantitative Information Extraction from Text using Open and Lightweight LLMs}},	
-    author = {Göpfert, Jan and Kuckertz, Patrick and Müller, Gian and Lütz, Luna and Körner, Celine and Khuat, Hang and Stolten, Detlef and Weinand, Jann M.},
-    month = okt,
-    year = {2025},
+@article{quinex2026,
+    title = {{Quinex: Quantitative information extraction from text using open and lightweight LLMs}},	
+    author = {Göpfert, Jan and Kuckertz, Patrick and Müller, Gian and Lütz, Luna and Körner, Celine and Khuat, Hang and Stolten, Detlef and Weinand, Jann M.},    
+    month = apr,
+    year = {2026},
+    journal = {The Innovation},    
+    doi = {10.1016/j.xinn.2026.101391}
 }
 ```
 
