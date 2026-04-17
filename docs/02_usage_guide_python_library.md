@@ -129,7 +129,7 @@ When creating the `Quinex` instance, you can specify to use the `use_cpu=True`, 
 Alternatively, you can also use the task preset for extracting only quantities
 ```Python
 >>> from quinex.config.presets import models, tasks
->>> quinex = Quinex(**models.tiny, **tasks.quantities_only)
+>>> quinex = Quinex(**models.tiny, **tasks.quantity_only)
 >>> quantities = quinex("...")
 ```
 
@@ -158,7 +158,7 @@ Parse unit strings
 >>> unit_parser = FastSymbolicUnitParser()
 >>> unit_parser.parse("$2021/kWh")
 [
-    ('$', 1, 'http://qudt.org/vocab/currency/USD', 2021),
+    ('$', 1, 'http://qudt.org/vocab/unit/CCY_USD', 2021),
     ('kWh', -1, 'http://qudt.org/vocab/unit/KiloW-HR', None)
 ]
 ```
@@ -167,28 +167,42 @@ Parse quantity strings
 ```python
 >>> from quinex import FastSymbolicQuantityParser
 >>> quantity_parser = FastSymbolicQuantityParser()
->>> quantity_parser.parse("above -120.123/-5 to 10.3 * 10^5 TWh kg*s^2/(m^2 per year)^3 at least")
+>>> quantity_parser.parse("above -12.3 * 10^-3 to 0.1 * 10^5 TWh kg*s^2/(m^2 per year)^3")
 {
-    'type': 'range'
+    'type': 'range',
     'nbr_quantities': 2,
     'normalized_quantities': [
         {
-            'prefixed_modifier': {'normalized': '>', 'text': 'above'},
+            'prefixed_modifier': {'text': 'above', 'normalized': '>'},
             'prefixed_unit': None,
             'value': {
-                'normalized': {'is_imprecise': False, 'numeric_value': 2402460.0},
-                'text': '-120.123/-5'
-                }
-            'suffixed_modifier': {'normalized': None, 'text': None},
+                'text': '-12.3 * 10^-3', 
+                'normalized': {'numeric_value': -0.0123, 'is_imprecise': False}
+            }, 
+            'uncertainty_expression_pre_unit': None,
             'suffixed_unit': {
-                'ellipsed_text': 'TWh kg*s^2/(m^2 per year)^3',
+                'text': None,
+                'ellipsed_text': 'TWh kg*s^2/ (m^2 per year)^3',
                 'normalized': [
                     ('TWh', 1, 'http://qudt.org/vocab/unit/TeraW-HR', None),
                     ('kg', 1, 'http://qudt.org/vocab/unit/KiloGM', None),
                     ('s', 2, 'http://qudt.org/vocab/unit/SEC', None),
                     ('m', -6, 'http://qudt.org/vocab/unit/M', None),
-                    ('year', 3, 'http://qudt.org/vocab/unit/YR', None)],                
-    ...
+                    ('year', 3, 'http://qudt.org/vocab/unit/YR', None)
+                ]
+            },
+            'uncertainty_expression_post_unit': None,
+            'suffixed_modifier': None
+        },   
+        {
+            'prefixed_modifier': None,
+            'prefixed_unit': None,
+            'value': {'text': '0.1 * 10^5', 'normalized': {'numeric_value': 10000.0, 'is_imprecise': False}}
+            ...
+        }
+    ],
+    'separators': [('to', 'range_separator')], 
+    'success': True
 }
 ```
 
@@ -197,17 +211,18 @@ Besides quantity and unit parsing, quinex provides other utility functions for h
 For example, you can convert quantities between different units. However, please note that this is an experimental feature.
 
 ```python
-from quinex import FastSymbolicUnitParser
+>>> from quinex import FastSymbolicUnitParser
 
-unit_parser = FastSymbolicUnitParser()
-
-from_unit = unit_parser.parse("kWh/kg")
-to_unit = unit_parser.parse("MJ/kg")
-conv_value, conv_unit = unit_parser.unit_conversion(
+>>> unit_parser = FastSymbolicUnitParser()
+>>> from_unit = unit_parser.parse("km")
+>>> to_unit = unit_parser.parse("m")
+>>> conv_value, conv_unit = unit_parser.unit_conversion(
                     value=9.5,
                     from_compound_unit=from_unit,
                     to_compound_unit=to_unit,
                 )
+>>> print(conv_value)
+9500.0
 ```
 
 You can adjust for inflation and exchange rates when converting currency.
@@ -225,7 +240,7 @@ conv_value, conv_unit = unit_parser.unit_conversion(
 
 Or you can check if a string contains any number, physical constant, etc.
 ```python
-from quinex_utils.functions.boolean_checks import contains_any_number
+from quinex_utils.functions.boolean_checks import contains_any_number, contains_any_physical_constant
 
 if contains_any_number("..."):
     ...

@@ -7,7 +7,7 @@ Clone this repo and install the quinex package with the `[api]` extra dependenci
 ## Getting started
 To start the API, make sure you are in the repository root folder. Then, you can start the API with:
 ```bash
-uvicorn services/quinex_api/api:app --reload --port 5000
+uvicorn services.quinex_api.api:app --reload --port 5000
 ```
 This starts the API on port 5000. The API is documented using OpenAPI and can be accessed at `http://localhost:5000/docs`. The API loads the models once when starting and keeps them in memory. Thus, subsequent requests are processed quickly. However, loading the models may take a few minutes depending on your hardware.
 
@@ -29,7 +29,7 @@ Or using Python:
 ```python
 import requests                        
 
-endpoint = "http://localhost:5000/text/annotate?skip_imprecise_quantities=true"
+endpoint = "http://localhost:5000/api/process_text/?skip_imprecise_quantities=true"
 text = "The quick brown fox has an eigenfrequency of 5 Hz."
 
 response = requests.post(endpoint, json=text)
