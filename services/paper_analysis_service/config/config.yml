@@ -28,14 +28,14 @@ quinex_api: # Service to quickly annotate small texts with quinex.
     host: "127.0.0.1" 
     port: 5555
 on_demand_batch_processing_api: # Service to annotate many papers in parallel.
-    enable: false
+    enable: true
     host: "127.0.0.1"
-    port: 5050            
+    port: 5050
 parsing_service: # Grobid service to parse PDFs.
-    enable: false
+    enable: true
     grobid_config_file_path: "./pdf_parser/grobid.json"
     host: "127.0.0.1" # Should match information in `../pdf_parser/grobid.json`. TODO: Remove redundancy.
-    port: 8080 # Should match information in `../pdf_parser/grobid.json`. TODO: Remove redundancy.
+    port: 8070 # Should match information in `../pdf_parser/grobid.json`. TODO: Remove redundancy.
 reading_and_curation_ui: # quinex GUI to render papers with annotations.
     host: "127.0.0.1"
     port: 3003

@@ -47,13 +47,14 @@ To run the Quinex paper processing service, you need to set up the following com
     podman run --rm --gpus all --init --ulimit core=0 -p 8070:8070 grobid/grobid:0.8.0
     ```
     You can also use docker instead of podman. Make sure to use the port specified in `./services/paper_analysis_service/pdf_parser/grobid.json`.
+    To use Grobid without on CPUs remove the --gpus flag.
 2. **Quinex API** (used for quick responses when using the demo text field)
     ```bash
     python ./services/quinex_api/api.py --config_path "./services/paper_analysis_service/config/config.yml"
     ```
 3. **Bulk processing API** (used for processing paper processing jobs on a SLURM cluster)
     ```bash
-    python ./services/paper_analysis_service/api/quinex_processing_apis/on_demand_batch_processing_api/headnode_api.py --config_path "./services/paper_analysis_service/config/config.yml"    
+    python ./services/paper_analysis_service/api/quinex_processing_apis/on_demand_batch_processing_api/headnode_api.py --config_path "./services/paper_analysis_service/config/config.yml"
     ```
 4. **Paper analysis API** (provides endpoints to process scientific articles): Currently, the Nominatim API is used for normalizing the spatial scope. To comply with their API guidelines, you have to specify your email address.
     ```bash
@@ -71,7 +72,7 @@ To run the Quinex paper processing service, you need to set up the following com
     ```
 5. **Reading and curation GUI** (visualizes the extracted information directly in the text and provides an interface to curate the training data):
     ```bash
-    cd services/paper_analysis_service/ui/reading_and_curation_ui
+    cd services/paper_analysis_service/ui/paper_ui
     sudo docker compose -f docker-compose-dev.yml up -d --build
     ```
     Make sure to use the port specified in `./services/paper_analysis_service/config/config.yml`.

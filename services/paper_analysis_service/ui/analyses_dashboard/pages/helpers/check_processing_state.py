@@ -2,15 +2,15 @@ import json
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
-
+from pages.helpers.get_config import CONFIG, GUI_URL, ANALYSES_DIR, get_analysis_dir, get_papers_dir
 
 def check_processing_state(analyis_name: str, verbose: bool = False) -> dict:
     """
     Check the processing state of the papers in the given analysis directory.
     This function checks if the papers have been processed, normalized, extracted, parsed, and downloaded.    
     """
-    # Define the directory where the papers are stored.
-    paper_dir = Path(f"analyses/{analyis_name}/papers")
+    
+    paper_dir = get_papers_dir(analyis_name) # directory where papers are stored
 
     processed_papers = defaultdict(int)
     last_modified_per_year = defaultdict(list)

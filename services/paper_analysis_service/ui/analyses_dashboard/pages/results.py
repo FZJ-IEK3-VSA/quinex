@@ -1,21 +1,16 @@
 import os
 import re
 import json
+from pathlib import Path
 from collections import defaultdict, Counter, OrderedDict
 import pandas as pd
-from werkzeug.utils import secure_filename
 import streamlit as st
 from streamlit_agraph import agraph, Node, Edge, Config
 
-from pages.helpers.get_config import CONFIG, GUI_URL
+from pages.helpers.get_config import CONFIG, GUI_URL, ANALYSES_DIR, get_analysis_dir, get_papers_dir
 from pages.helpers.check_processing_state import check_processing_state
 from quinex.analyze.citation_networks.create_citation_network_of_quantitative_claims import create_citation_graph
 
-
-
-ANALYSES_DIR = CONFIG["manage_analyses_api"]["analyses_dir"]
-get_analysis_dir = lambda name: ANALYSES_DIR / secure_filename(name)
-get_papers_dir = lambda name: get_analysis_dir(name) / "papers"
 
 Offset = tuple[int, int]
 
@@ -198,19 +193,30 @@ def get_paper_meta(paper, openalex_paper_id):
     title = paper["metadata"]["bibliographic"]["title"]
     pub_year = paper["metadata"]["bibliographic"]["publication_year"]
     cited_by_count = paper["metadata"]["bibliographic"].get("cited_by_count")
-    is_open_access = paper["metadata"]["provenance"]["fulltext_source"].get("openalex_about_source", {}).get("is_oa")
-    license_from_source = paper["metadata"]["provenance"]["fulltext_source"].get("license_from_source")
 
+    provenance_meta = paper["metadata"]["provenance"]        
+    if "fulltext_source" in provenance_meta:
+        text_source = provenance_meta["fulltext_source"]
+    elif "abstract_source" in provenance_meta:
+        text_source = provenance_meta["abstract_source"]        
+    else:
+        raise NotImplementedError
+
+    is_open_access = text_source.get("openalex_about_source", {}).get("is_oa")
+    license_from_source = text_source.get("license_from_source")
     if is_open_access == None and license_from_source != None:
         is_open_access = True if license_from_source in OA_LICENSES else False
-
-    fulltext_source = paper["metadata"]["provenance"]["fulltext_source"]
-    if fulltext_source.get("user_uploaded"):
-        fulltext_source_type = "user_uploaded"
-    elif fulltext_source.get("url") and fulltext_source["url"].startswith("https://api.elsevier.com/"):
-        fulltext_source_type = "elsevier_api"
+        
+    if text_source.get("user_uploaded"):
+        text_source_type = "user_uploaded"
+        if text_source.get("method") == "pdf_upload":
+            pass
+        if text_source.get("method") == "scopus_export_file_upload":
+            text_source_type = "scopus_export_file_upload"        
+    elif text_source.get("url") and text_source["url"].startswith("https://api.elsevier.com/"):
+        text_source_type = "elsevier_api"
     else:
-        fulltext_source_type = "oa_pdf_url"
+        text_source_type = "oa_pdf_url"
 
     text_char_count = len(paper["text"])
     text_words_count = len(paper["text"].split())
@@ -247,7 +253,7 @@ def get_paper_meta(paper, openalex_paper_id):
         "institutions": institutions,
         "institution_types": institution_types,
         "countries": countries,
-        "fulltext_source_type": fulltext_source_type,
+        "text_source_type": text_source_type,
     }
 
 
@@ -381,7 +387,7 @@ def get_qclaims_from_paper(paper, paper_meta, qid=0):
         system_clf = qclaim["statement_classification"]["system"]["class"]
 
         # Annotated text snippet.
-        if paper_meta["fulltext_source_type"] != "elsevier_api":
+        if paper_meta["text_source_type"] not in ["elsevier_api", "scopus_export_file_upload"]:
             entity_char_offsets = [] if entity["is_implicit"] else [(entity["start"], entity["end"])]
             property_char_offsets = [] if property["is_implicit"] else [(property["start"], property["end"])]
             quantity_char_offsets = [(quantity["start"], quantity["end"])]
@@ -636,7 +642,7 @@ def filter_qclaims(qdf):
 def list_papers_with_link_to_reading_gui(qdf):
 
     paper_df = qdf[["paper_id", "title", "pub_year", "cited_by_count", "source_snippet"]]
-    paper_df["source_availabe"] = paper_df["source_snippet"].apply(lambda x: x != "No snippet available due to copyright restrictions.")
+    paper_df = paper_df.assign(source_availabe = lambda x: x["source_snippet"] != "No snippet available due to copyright restrictions.")
     paper_df = paper_df.drop(columns=["source_snippet"])    
     paper_df = paper_df.drop_duplicates()
 
@@ -706,7 +712,7 @@ def show_top_k_concepts(
     # Sort by concept count and property count by changing labels, because Streamlit ignores sorting.
     max_count_digits = len(str(top_k_concepts["count"].max()))
     top_k_concepts_["concept"] = top_k_concepts.apply(
-        lambda x: f"{str(x["count"]).zfill(max_count_digits)}: {x['concept'] if x['concept'] != "" else 'None'}", axis=1
+        lambda x: str(x['count']).zfill(max_count_digits) + ": " + str(x['concept']) if x['concept'] != "" else 'None', axis=1
     )
 
     st.markdown(f"### Most Frequent {concept_plural_label}")

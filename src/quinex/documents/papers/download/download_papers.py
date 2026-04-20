@@ -43,17 +43,20 @@ def init_structured_paper_json(destination_dir, paper, downloaded_from=None, ful
     }
     if only_abstract:
         if abstract == None:
-            raise ValueError("If only_abstract is True, abstract must be given.")
+            raise HTTPException(status=400, detail="If only_abstract is True, abstract must be given.")
         else:
             structured_paper["text"] = abstract
             structured_paper["metadata"]["provenance"].update({"abstract_as_fallback": {
                     "timestamp": datetime.now().astimezone().replace(microsecond=0, second=0).isoformat(),
                     "note": "The abstract was taken as fallback because the fulltext could not be downloaded.",
                 }})
-
-    if downloaded_from != None:
-        if None in [fulltext, oa_locations, license_according_to_source]:
-            raise ValueError("If downloaded_from is given, fulltext, oa_locations and license_according_to_source must also be given.")
+    elif downloaded_from != None:
+        if fulltext == None:
+            raise HTTPException(status_code=500, detail="fulltext must be given.")
+        elif oa_locations == None:
+            raise HTTPException(status_code=500, detail="oa_locations must be given.")
+        # elif license_according_to_source == None: # TODO: Fix occurance of None licenses
+        #     raise HTTPException(status_code=500, detail="license_according_to_source must be given.")
         else:
             structured_paper["metadata"]["provenance"].update({"fulltext_source": {
                     "url": downloaded_from,
@@ -116,15 +119,17 @@ def download_paper_by_doi(doi, analysis_name, papers_dir, allowed_formats={"pdf"
     # Get paper metadata.
     extensive_paper_meta = get_papers_by_dois([doi], only_open_access=False, only_english=False, limit=1, only_basic_info=False)
     if len(extensive_paper_meta) == 0:
+        print(f"Paper with DOI {doi} not found.")
         raise HTTPException(status_code=404, detail=f"Paper with DOI {doi} not found.")
     elif len(extensive_paper_meta) > 1:
+        print(f"Multiple papers found with DOI {doi}. This should not happen. Please report this issue.")
         raise HTTPException(status_code=500, detail=f"Multiple papers found with DOI {doi}. This should not happen. Please report this issue.")
     else:
         paper = extensive_paper_meta[0]
         openalex_work_id = paper["id"].removeprefix('https://openalex.org/')    
         license = paper["primary_location"]["license"]
 
-    # Create directory for paper.    
+    # Create directory for paper.
     paper_dir = papers_dir / openalex_work_id
     os.makedirs(paper_dir, exist_ok=True)
 
@@ -133,7 +138,7 @@ def download_paper_by_doi(doi, analysis_name, papers_dir, allowed_formats={"pdf"
     reverted_to_abstract = False
     if take_abstract_as_fallback and not success and not paper_already_downloaded:
         # If download failed, but user wants to take abstract as fallback, we do so here.
-        print("Taking abstract as fallback.")     
+        print("Taking abstract as fallback.")
         got_abstract = False
 
         # First try to use abstract from OpenAlex.
@@ -149,7 +154,8 @@ def download_paper_by_doi(doi, analysis_name, papers_dir, allowed_formats={"pdf"
                 got_abstract = True
         
         if got_abstract:
-            init_structured_paper_json(paper_dir, paper, abstract=abstract, only_abstract=take_abstract_as_fallback)
+            print("Got abstract, initializing structured paper JSON with abstract as fallback.")
+            init_structured_paper_json(paper_dir, paper, abstract=abstract, only_abstract=True)
             reverted_to_abstract = True
 
     return success, paper_id, file_format, paper_already_downloaded, reverted_to_abstract
@@ -192,8 +198,8 @@ def download_paper(paper, paper_dir, openalex_work_id, license, allowed_formats=
             file_format = "xml"
     
     elif allowed_formats["pdf"]:
-        # Try to download PDF from OA URLs.
-        best_oa_url = paper["open_access"]["oa_url"]        
+        print("Try to download PDF from OA URLs.")
+        best_oa_url = paper["open_access"]["oa_url"]
         oa_locations = {l["pdf_url"]: l for l in paper["locations"] if l["is_oa"] and l["pdf_url"] is not None}
         oa_urls = sorted(oa_locations.keys(), key=lambda x: x == best_oa_url, reverse=True) # make sure best OA URL is first        
         for oa_url in oa_urls:
@@ -235,7 +241,7 @@ def download_papers(
 
     # Check if allowed formats are set.
     if not any(allowed_formats.values()):
-        raise ValueError("At least a single format (pdf or elsevier_xml) must be allowed.")
+        raise HTTPException(status_code=400, detail="At least a single format (pdf or elsevier_xml) must be allowed.")
     
     # Load list of selected papers.    
     results_file = analysis_dir / "selected_papers.json"

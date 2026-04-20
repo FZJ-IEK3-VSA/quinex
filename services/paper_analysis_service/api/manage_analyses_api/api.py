@@ -9,6 +9,7 @@ import hashlib
 import requests
 from pathlib import Path
 from wasabi import msg
+import pandas as pd
 from thefuzz import fuzz
 from bs4 import BeautifulSoup
 from werkzeug.utils import secure_filename
@@ -99,7 +100,7 @@ def annotation_service_is_alive():
     """
     Check if the inference API is running.
     """
-    is_alive_endpoint = ANNOTATION_SERVICE_URL + "is_alive/"
+    is_alive_endpoint = ANNOTATION_SERVICE_URL.rstrip('/') + "/is_alive/"
     print(f"Send request to {is_alive_endpoint}")
     try:
         response = requests.get(is_alive_endpoint)
@@ -117,7 +118,7 @@ def batch_annotation_service_is_alive():
     """
     Check if the bulk annotation service is running.
     """
-    is_alive_endpoint = BATCH_ANNOTATION_SERVICE_URL + "/is_alive/"
+    is_alive_endpoint = BATCH_ANNOTATION_SERVICE_URL.rstrip('/') + "/is_alive/"
     print(f"Send request to {is_alive_endpoint}")
     try:
         response = requests.get(is_alive_endpoint)
@@ -135,7 +136,7 @@ def parsing_service_is_alive():
     """
     Check if the PDF parsing service is running.
     """
-    is_alive_endpoint = grobid_config["grobid_server"] + "isalive/"
+    is_alive_endpoint = grobid_config["grobid_server"].rstrip('/') + "/api/isalive/"
     print(f"Send request to {is_alive_endpoint}")
     try:
         response = requests.get(is_alive_endpoint)
@@ -185,7 +186,7 @@ else:
 def batch_annotate_papers(batch_job_payload, gpu_count: int=4): 
     print("Sending annotation job to compute node...")    
     
-    endpoint_url = f'{BATCH_ANNOTATION_SERVICE_URL}/api/batch_process_papers/?mean_execution_time_per_paper_per_gpu=50&gpu_count={gpu_count}'
+    endpoint_url = BATCH_ANNOTATION_SERVICE_URL.rstrip('/') + f'/batch_process_papers/?mean_execution_time_per_paper_per_gpu=50&gpu_count={gpu_count}'
     headers = {'Content-type': 'application/json'}
     
     print(f"Send request to {endpoint_url}")    
@@ -239,7 +240,7 @@ def annotate_paper_text(paper_dict, skip_imprecise_quantities=False, worker_id=N
     # forwarding tunnel from the local machine to the compute node.
     print("Sending annotation job to compute node...")
 
-    endpoint_url = f'{ANNOTATION_SERVICE_URL}/api/process_paper/?skip_imprecise_quantities={skip_imprecise_quantities}'
+    endpoint_url = ANNOTATION_SERVICE_URL.rstrip('/') + f'/process_paper/?skip_imprecise_quantities={skip_imprecise_quantities}'
     headers = {'Content-type': 'application/json'}
 
     print(f"Send request to {endpoint_url}")
@@ -353,9 +354,9 @@ def parse_and_extract(paper_dir, analysis_config, papers_to_process=[], skip_pap
 
     print("STEP 5: Normalize references")
     start_normalization_time = time.time()
-    bulk_analysis_qualifier_normalization_wrapper(paper_dir, qualifier="references", papers_to_process=papers_to_process, revert_to_bibliographic_api=False, paper_filename="structured.json")
+    bulk_analysis_qualifier_normalization_wrapper(paper_dir, qualifier="reference", papers_to_process=papers_to_process, revert_to_bibliographic_api=False, paper_filename="structured.json")
     bulk_analysis_qualifier_normalization_wrapper(paper_dir, qualifier="temporal_scope", papers_to_process=papers_to_process, paper_filename="structured.json")
-    bulk_analysis_qualifier_normalization_wrapper(paper_dir, qualifier="spatial_scope", papers_to_process=papers_to_process, paper_filename="structured.json", extend_geo_normalization_cache=True, nice=1.1)
+    bulk_analysis_qualifier_normalization_wrapper(paper_dir, qualifier="spatial_scope", papers_to_process=papers_to_process, paper_filename="structured.json", extend_geo_normalization_cache=True, geo_normalization_nice=1.1)
     
     total_normalization_time = time.time() - start_normalization_time
     
@@ -700,7 +701,7 @@ def bulk_analysis_add_additional_papers_endpoint(analysis_name: analysis_name_co
         filenames = []        
         for pdf in pdf_files:
             binary_content = pdf.file.read()
-            pdf_hash = hashlib.file_digest(io.BytesIO(binary_content), 'sha256').hexdigest()            
+            pdf_hash = hashlib.sha256(binary_content).hexdigest()
             unique_paper_dir = "W_sha256_" + pdf_hash
             print(unique_paper_dir)
             paper_ids.append(unique_paper_dir)
@@ -794,7 +795,7 @@ def bulk_analysis_add_papers_scopus_export_endpoint(analysis_name: analysis_name
                 if hash_str.replace("nan", "").replace(", ","").strip() == "":
                     raise HTTPException(status_code=400, detail=f"Row {index} in CSV file {csv.filename} has empty.")
                 
-                abstract_hash = hashlib.file_digest(io.BytesIO(hash_str.encode("utf-8")), 'sha256').hexdigest()
+                abstract_hash = hashlib.sha256(hash_str.encode("utf-8")).hexdigest()
                 unique_paper_dir = "W_sha256_" + abstract_hash
                 print(unique_paper_dir)
 
@@ -1086,7 +1087,7 @@ def annotate_text(text: Annotated[str, Body(examples=[example_text])], skip_impr
     print("Sending annotation job to compute node...")    
     start_time = time.time()
 
-    endpoint_url = f'{ANNOTATION_SERVICE_URL}/api/process_text/?skip_imprecise_quantities={skip_imprecise_quantities}'    
+    endpoint_url = ANNOTATION_SERVICE_URL.rstrip('/') + f'/process_text/?skip_imprecise_quantities={skip_imprecise_quantities}'    
     headers = {'Content-type': 'application/json'}
 
     print(f"Send request to {endpoint_url}")
@@ -1129,7 +1130,7 @@ def create_annotation(analysis_name: str, paper_id: str, quantity_start_char: in
         raise HTTPException(status_code=400, detail=f"Quantity span character offsets do not match the quantity surface form. Given character offsets correspond to \"{paper['text'][quantity_start_char:quantity_end_char]}\" instead of \"{quantity_surface}\".")
     
     # Get quantitative claim for new quantity annotation.
-    endpoint_url = f'{ANNOTATION_SERVICE_URL}/api/get_claim_for_quantity/'    
+    endpoint_url = ANNOTATION_SERVICE_URL.rstrip('/') + '/get_claim_for_quantity/'
     headers = {'Content-type': 'application/json'}
 
     print(f"Send request to {endpoint_url}")    

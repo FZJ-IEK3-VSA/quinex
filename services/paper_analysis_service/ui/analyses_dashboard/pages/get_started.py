@@ -296,8 +296,20 @@ with getting_started_column:
 with docs_column:
     
     # Show README in the right column.
-    app_dir = Path(__file__).resolve().parents[1]
-    with open(app_dir / "static" / "docs.md", "r") as f:
-        docs_md = f.read()
-    
+
+    def load_specific_lines(filepath, line_ranges: list[tuple]):
+        # `line_ranges` are 1 indexed and include the end line.
+        with open(filepath, 'r', encoding='utf-8') as f:
+            all_lines = f.readlines()
+        
+        extracted_content = []
+        for start, end in line_ranges:
+            # Adjust for 0 indexing and exclusive end.
+            extracted_content.extend(all_lines[start-1 : end])
+            
+        return "".join(extracted_content)
+
+    repo_readme = Path(__file__).resolve().parents[5] / "README.md"
+    lines_to_keep = [(7,37), (107, 167), (171, 177)]
+    docs_md = "# Docs\n\n" + load_specific_lines(repo_readme, lines_to_keep)
     st.markdown(docs_md)

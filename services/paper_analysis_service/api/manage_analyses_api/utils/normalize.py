@@ -61,7 +61,7 @@ def bulk_analysis_qualifier_normalization_wrapper(
                     quantitative_statement["qualifiers"]["reference"]["normalized"] = individual_matches                         
                 
                 else:
-                    raise ValueError("Unexpected qualifier")
+                    raise ValueError(f"Unexpected qualifier: {qualifier}")
             
             if qualifier == "spatial_scope" and extend_geo_normalization_cache:
                 save_spatial_scope_normalization_mapping()
