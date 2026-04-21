@@ -14,7 +14,7 @@ from quinex.extract.utils.transformers import load_transformers_pipe, get_text_c
 
 
 
-blacklisted_special_chars = [".", ",", ";", ":", "-", "_" "!", "?", "&", "(", "{", "[", "]", "}", ")", "'", '"', "=", "+", "*", "/", "\\", "|", "<", ">", "^", "#", "@", "~", "`"]
+blacklisted_special_chars = [".", ",", ";", ":", "-", "_", "!", "?", "&", "(", "{", "[", "]", "}", ")", "'", '"', "=", "+", "*", "/", "\\", "|", "<", ">", "^", "#", "@", "~", "`"]
 ONLY_SPECIAL_CHARS = re.compile(r"^[" + re.escape("".join(blacklisted_special_chars)) + r"]*$")
 
 
@@ -63,24 +63,19 @@ def filter_quantity_spans(quantity_spans):
      - a number word
      - a known constant
 
-    """    
+    """
+    valid_quantity_spans = []
     for quantity_span in quantity_spans:
         test_span = quantity_span["text"].lower()
-        if CONTAINS_DIGIT_REGEX.match(test_span):
-            # Span contains at least one digit.
-            pass
-        elif CONTAINS_NUMBER_WORD_OR_IMPRECISE_QUANTITY_REGEX.match(test_span):
-            # Span contains at least one number word or imprecise quantity.
-            pass
-        elif test_span in PHYSICAL_CONSTANTS_LOWERED:
-            # Span matches a known constant.
-            pass
+        if CONTAINS_DIGIT_REGEX.match(test_span) \
+            or CONTAINS_NUMBER_WORD_OR_IMPRECISE_QUANTITY_REGEX.match(test_span) \
+                or test_span in PHYSICAL_CONSTANTS_LOWERED:
+            # Span matches a known constant or contains at least one digit, number word, or imprecise quantity.
+            valid_quantity_spans.append(quantity_span)
         else:
-            # The given span seems not to be a quantity span.
-            quantity_spans.remove(quantity_span)
             print(f"Warning: Removed {quantity_span} from quantity spans, because it seems not to be a quantity span.")
 
-    return quantity_spans
+    return valid_quantity_spans
 
 
 def filter_garbage_quantity_spans(quantity_spans):
@@ -132,27 +127,28 @@ def postprocess_quantity_span(quantity_span, text):
             quantity_span["end"] -= 2
 
         # Remove leading commas, semicolons, opening parentheses, etc.
-        if quantity_span["text"][0] in SINGLE_CHAR_GARBAGE_AT_START:
+        if quantity_span["text"] and quantity_span["text"][0] in SINGLE_CHAR_GARBAGE_AT_START:
             quantity_span["text"] = quantity_span["text"][1:]
             quantity_span["start"] += 1            
         
         # Remove leading and trailing parentheses.
-        for opening, closing in PARENTHESES:
-            if quantity_span["text"].startswith(opening) or quantity_span["text"].endswith(closing):
-                if quantity_span["text"].startswith(opening) and quantity_span["text"].endswith(closing):
-                    quantity_span["text"] = quantity_span["text"][1:-1]
-                    quantity_span["start"] += 1
-                    quantity_span["end"] -= 1        
-                elif quantity_span["text"].endswith(closing) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) < 0:
-                    # Remove single trailing parentheses.
-                    quantity_span["text"] = quantity_span["text"][:-1]
-                    quantity_span["end"] -= 1
-                elif quantity_span["text"].startswith(opening) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) > 0:
-                    # Remove leading trailing parentheses.
-                    quantity_span["text"] = quantity_span["text"][1:]
-                    quantity_span["start"] += 1
+        if quantity_span["text"]:
+            for opening, closing in PARENTHESES:
+                if quantity_span["text"].startswith(opening) or quantity_span["text"].endswith(closing):
+                    if quantity_span["text"].startswith(opening) and quantity_span["text"].endswith(closing):
+                        quantity_span["text"] = quantity_span["text"][1:-1]
+                        quantity_span["start"] += 1
+                        quantity_span["end"] -= 1        
+                    elif quantity_span["text"].endswith(closing) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) < 0:
+                        # Remove single trailing parentheses.
+                        quantity_span["text"] = quantity_span["text"][:-1]
+                        quantity_span["end"] -= 1
+                    elif quantity_span["text"].startswith(opening) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) > 0:
+                        # Remove leading trailing parentheses.
+                        quantity_span["text"] = quantity_span["text"][1:]
+                        quantity_span["start"] += 1
             
-        # Remove leading and trailing whitespace.        
+        # Remove leading and trailing whitespace.
         quantity_span_a = quantity_span["text"].lstrip()
         leading_whitespace = len(quantity_span["text"]) - len(quantity_span_a)
         quantity_span_b = quantity_span_a.rstrip()
@@ -191,7 +187,7 @@ def postprocess_quantity_spans(quantity_spans, text):
     for quantity_span in quantity_spans:
         pp_quantity_spans.append(postprocess_quantity_span(quantity_span, text))
 
-    return quantity_spans
+    return pp_quantity_spans
 
 
 class QuantitySpanIdentification:
