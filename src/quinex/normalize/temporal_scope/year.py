@@ -2,7 +2,16 @@
 import re
 
 
-def get_int_year_from_temporal_scope(temporal_scope_span: str, publication_year: int, allowed_year_lb: int=1800, allowed_year_ub: int=2100):
+def get_int_year_from_temporal_scope(
+        temporal_scope_span: str,
+        publication_year: int,
+        allowed_year_lb: int=1800,
+        allowed_year_ub: int=2100,
+        shortterm_in_years: int=5,
+        midterm_in_years: int=10,
+        longterm_in_years: int=20,
+        recently_in_years: int=-5,
+    ):
     """
     Get an integer year from the temporal scope span.
     If no year can be extracted, use the publication year.
@@ -34,16 +43,16 @@ def get_int_year_from_temporal_scope(temporal_scope_span: str, publication_year:
             temporal_scope = publication_year
             year_assumed_from_pub_year = False
         elif any([k in temporal_scope_span for k in shortterm_future_keywords]):
-            temporal_scope = publication_year + 5
+            temporal_scope = publication_year + shortterm_in_years
             year_assumed_from_pub_year = False
         elif any([k in temporal_scope_span for k in midterm_future_keywords]):
-            temporal_scope = publication_year + 10
+            temporal_scope = publication_year + midterm_in_years
             year_assumed_from_pub_year = True
         elif any([k in temporal_scope_span for k in longterm_future_keywords]):
-            temporal_scope = publication_year + 20
+            temporal_scope = publication_year + longterm_in_years
             year_assumed_from_pub_year = True
         elif any([k in temporal_scope_span for k in shortterm_historical_keywords]):
-            temporal_scope = publication_year - 5
+            temporal_scope = publication_year + recently_in_years
             year_assumed_from_pub_year = False
         # TODO: Consider time horizons like "over a 30-year period"
         # elif any("year " + period_kw in temporal_scope_span for period_kw in ["time horizon", "period", "project life", "range"]):
