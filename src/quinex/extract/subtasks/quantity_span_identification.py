@@ -104,8 +104,8 @@ def postprocess_quantity_span(quantity_span, text):
     Postprocess a single quantity span iteratively until
     no changes are made by
     * removing leading and trailing whitespace, commas, 
-      semicolons, parantheses, etc.,
-    * closing parantheses if necessary, and
+      semicolons, parentheses, etc.,
+    * closing parentheses if necessary, and
     * adding a % sign if it directly follows the quantity.
     
     Args:
@@ -116,13 +116,14 @@ def postprocess_quantity_span(quantity_span, text):
     SINGLE_CHAR_GARBAGE_AT_END = [",",";", ":", "!", "?", "&", "(", "{", "["] 
     DOUBLE_CHAR_GARBAGE_AT_END = [")."]
     SINGLE_CHAR_GARBAGE_AT_START = ["!", "?", "&", ")", "}", "]"]
+    PARENTHESES = [("(", ")"), ("[", "]"), ("{", "}")]
     
     prev_iteration = ""                
     while len(quantity_span["text"]) > 0 and prev_iteration != quantity_span["text"]:
 
         prev_iteration = quantity_span["text"]
 
-        # Remove trailing commas, semicolons, opening parantheses, etc.
+        # Remove trailing commas, semicolons, opening parentheses, etc.
         if quantity_span["text"][-1] in SINGLE_CHAR_GARBAGE_AT_END or quantity_span["text"].endswith("%."):
             quantity_span["text"] = quantity_span["text"][:-1]
             quantity_span["end"] -= 1
@@ -130,25 +131,26 @@ def postprocess_quantity_span(quantity_span, text):
             quantity_span["text"] = quantity_span["text"][:-2]
             quantity_span["end"] -= 2
 
-        # Remove leading commas, semicolons, opening parantheses, etc.
+        # Remove leading commas, semicolons, opening parentheses, etc.
         if quantity_span["text"][0] in SINGLE_CHAR_GARBAGE_AT_START:
             quantity_span["text"] = quantity_span["text"][1:]
             quantity_span["start"] += 1            
         
-        # Remove leading and trailing parantheses.
-        if quantity_span["text"].startswith("(") or quantity_span["text"].endswith(")"):
-            if quantity_span["text"].startswith("(") and quantity_span["text"].endswith(")"):
-                quantity_span["text"] = quantity_span["text"][1:-1]
-                quantity_span["start"] += 1
-                quantity_span["end"] -= 1        
-            elif quantity_span["text"].endswith(")") and quantity_span["text"].count("(") - quantity_span["text"].count(")") < 0:
-                # Remove single trailing parantheses.
-                quantity_span["text"] = quantity_span["text"][:-1]
-                quantity_span["end"] -= 1
-            elif quantity_span["text"].startswith("(") and quantity_span["text"].count("(") - quantity_span["text"].count(")") > 0:
-                # Remove leading trailing parantheses.
-                quantity_span["text"] = quantity_span["text"][1:]
-                quantity_span["start"] += 1
+        # Remove leading and trailing parentheses.
+        for opening, closing in PARENTHESES:
+            if quantity_span["text"].startswith(opening) or quantity_span["text"].endswith(closing):
+                if quantity_span["text"].startswith(opening) and quantity_span["text"].endswith(closing):
+                    quantity_span["text"] = quantity_span["text"][1:-1]
+                    quantity_span["start"] += 1
+                    quantity_span["end"] -= 1        
+                elif quantity_span["text"].endswith(closing) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) < 0:
+                    # Remove single trailing parentheses.
+                    quantity_span["text"] = quantity_span["text"][:-1]
+                    quantity_span["end"] -= 1
+                elif quantity_span["text"].startswith(opening) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) > 0:
+                    # Remove leading trailing parentheses.
+                    quantity_span["text"] = quantity_span["text"][1:]
+                    quantity_span["start"] += 1
             
         # Remove leading and trailing whitespace.        
         quantity_span_a = quantity_span["text"].lstrip()
@@ -168,7 +170,7 @@ def postprocess_quantity_span(quantity_span, text):
             quantity_span["text"] = quantity_span["text"] + " %"
             quantity_span["end"] += 2            
             
-        # Close parantheses.
+        # Close parentheses.
         if len(text) >= quantity_span["end"] + 1 and text[quantity_span["end"]] in [")", "}", "]"]:
             if text[quantity_span["end"]] == ")":
                 pars = ["(", ")"]
