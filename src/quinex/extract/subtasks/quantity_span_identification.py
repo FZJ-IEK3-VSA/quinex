@@ -141,7 +141,7 @@ def postprocess_quantity_span(quantity_span, text):
                 quantity_span["text"] = quantity_span["text"][1:-1]
                 quantity_span["start"] += 1
                 quantity_span["end"] -= 1        
-            elif quantity_span["text"].endswith(")") and quantity_span["text"].count("(") - quantity_span["text"].count(")") > 0:
+            elif quantity_span["text"].endswith(")") and quantity_span["text"].count("(") - quantity_span["text"].count(")") < 0:
                 # Remove single trailing parantheses.
                 quantity_span["text"] = quantity_span["text"][:-1]
                 quantity_span["end"] -= 1
