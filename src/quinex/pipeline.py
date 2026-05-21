@@ -331,14 +331,14 @@ class Quinex:
 
         start_time = time()
         
+        if type(text) != str:
+            raise ValueError("text must be a string.")
+        if len(text) == 0:
+            return []
+        if not self.enable_quantity_extraction:
+            raise ValueError("Quantity spand identification must be enabled to perform measurement context extraction and/or statement classification.")
         if self.batch_sizes["context_model"] != self.batch_sizes["statement_clf_model"]:
             msg.warn("The batch sizes for context extraction and statement classification are not equal. However, they are assumed to be equal. This may lead to suboptimal performance.")
-        elif type(text) != str:
-            raise ValueError("text must be a string.")
-        elif len(text) == 0:
-            return []
-        elif not self.enable_quantity_extraction:
-            raise ValueError("Quantity spand identfication must be enabled to perform measurement context extraction and/or statement classification.")
         
         # Prepare text.
         doc, semantic_boundaries = self.preprocess(text)

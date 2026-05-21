@@ -62,8 +62,10 @@ def get_int_year_from_temporal_scope(
             prefixes_to_removes = ["in", "by", "entire year of", "year", "starting in", "april", "at year", "before", "reference year", "units built-in", "commissioned in"]
             prefixes_to_removes = sorted(prefixes_to_removes, key=lambda x: len(x), reverse=True)
             for prefix in prefixes_to_removes:
-                temporal_scope_span = temporal_scope_span.removeprefix(prefix)
-                break
+                new_span = temporal_scope_span.removeprefix(prefix)
+                if new_span != temporal_scope_span:
+                    temporal_scope_span = new_span
+                    break
 
             # Get year using pattern matching on 4 digits with no digits before or after or start/end of string
             year = re.search(r"(?<!\d)\d{4}(?!\d)", temporal_scope_span)
