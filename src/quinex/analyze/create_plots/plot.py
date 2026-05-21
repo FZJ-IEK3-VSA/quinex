@@ -506,7 +506,7 @@ def create_violin_plot(
     melted = melted[~melted["facet_value"].isin(drop_facet_values)]
 
     # TODO: Create function to add sample size to facet labels and re-use from create_scatter_plot_with_trendlines()
-    # Add the sample size n of each facet value in parantheses to the facet_value
+    # Add the sample size n of each facet value in parentheses to the facet_value
     if add_sample_size_to_subfacet_label:    
         melted["facet_value"] = melted["facet_value"] + " (n=" + melted.groupby("facet_value")["value"].transform("count").astype(str) + ")"
     
@@ -828,7 +828,7 @@ def create_scatter_plot_with_trendlines(
     # -----------------------------------------------
     #                 Update labels                 
     # -----------------------------------------------
-    # Add the sample size n of each facet value in parantheses to the facet_value
+    # Add the sample size n of each facet value in parentheses to the facet_value
     if add_sample_size_to_subfacet_label:
         # Add sample size to facet_value of reference data.
         if reference_data is not None:

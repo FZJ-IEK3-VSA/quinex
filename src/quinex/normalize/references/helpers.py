@@ -77,7 +77,7 @@ def normalize_citation_string(cite_span: str, ascii_only: bool = False):
     # No trailing semicolon or comma.
     cite_span = cite_span.removesuffix(";").removesuffix(",").rstrip()
 
-    # No parantheses.
+    # No parentheses.
     if cite_span.startswith("(") and cite_span.endswith(")") and cite_span.count("(") == 1 and cite_span.count(")") == 1:
         cite_span = cite_span.removeprefix("(").removesuffix(")")
     
@@ -89,7 +89,7 @@ def normalize_citation_string(cite_span: str, ascii_only: bool = False):
     for dash in ['-','‐','‑','⁃','‒','–','—','―','-','−','－', '⁻']:
         cite_span = cite_span.replace(dash, "-")
 
-    # No whitespace after opening and before closing parantheses and brackets.
+    # No whitespace after opening and before closing parentheses and brackets.
     cite_span = cite_span.replace("( ", "(").replace(" )", ")").replace("[ ", "[").replace(" ]", "]")
 
     # Whitespace after punctuation.
@@ -628,7 +628,7 @@ def expand_citation_span(citation_span, recursion_level=0, max_recursion_level=2
             # Expand references like 'Doe et al. (2014a, 2016a)'  to 'Doe et al. (2014a), Doe et al. (2016a)'            
             citation_span_expanded = re.sub(r"(" + ref_authors + r",? ?\()(\d{4}[a-z]?),? (\d{4}[a-z]?)", r"\1\2), \1\3", citation_span)
         elif re.search(r"[\[ ]{2}\d{4}[a-z]?, \d{4}[a-z]?", citation_span) != None:
-            # Same as above, but with square brackets instead of round parantheses.
+            # Same as above, but with square brackets instead of round parentheses.
             # Expand references like 'Doe et al. [2014a, 2016a]'  to 'Doe et al. [2014a], Doe et al. [2016a]'
             citation_span_expanded = re.sub(r"(" + ref_authors + r",? ?\[)(\d{4}[a-z]?),? (\d{4}[a-z]?)", r"\1\2], \1\3", citation_span)
         elif re.search(r"[^\(]{2}\d{4}[a-z]?, \d{4}[a-z]?", citation_span) != None:

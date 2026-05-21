@@ -24,7 +24,7 @@ classifiers = [
 keywords = [
     "quantitative information extraction",
     "numeric information extraction",
-    "quantititative data extraction",
+    "quantitative data extraction",
     "measurement extraction",
     "information extraction",
     "quantities",

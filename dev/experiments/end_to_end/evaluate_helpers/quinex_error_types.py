@@ -1,4 +1,4 @@
-# Categorization of errors in quantity span identfication by quinex.
+# Categorization of errors in quantity span identification by quinex.
 
 incorrect_quantity_error_category_mapping = {
     "Incorrectly labeled quantity: 3.1 AE": "parsing error",

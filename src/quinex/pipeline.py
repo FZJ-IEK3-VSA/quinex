@@ -494,7 +494,7 @@ class Quinex:
             raise ValueError(
                 "As the same model is used for qualifier and context extraction, the number of workers" \
                 "should be the same. Context and qualifier extraction are performed sequentially," \
-                "so there is no reason to not use the availabel parallel workers for both tasks."
+                "so there is no reason to not use the available parallel workers for both tasks."
             )
         
         # Get batch sizes for each model.
