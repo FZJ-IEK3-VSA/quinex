@@ -20,9 +20,9 @@ def visualize_quantitative_statement(quantitative_statement, text: str, sentence
     # -------------------------------
     # Get statement class information
     # -------------------------------
-    statement_type = quantitative_statement["classes"]["type"]
-    statement_rational = quantitative_statement["classes"]["rational"]
-    statement_system = quantitative_statement["classes"]["system"]  
+    statement_type = quantitative_statement["statement_classification"]["type"]
+    statement_rational = quantitative_statement["statement_classification"]["rational"]
+    statement_system = quantitative_statement["statement_classification"]["system"]
     class_str = f"Type: {statement_type}\nRational: {statement_rational}\nSystem: {statement_system}" + "\n" + "-" * line_char_len
 
     # ---------------------------------------
