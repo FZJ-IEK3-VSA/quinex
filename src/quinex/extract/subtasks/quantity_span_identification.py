@@ -162,9 +162,9 @@ def postprocess_quantity_span(quantity_span, text):
         if len(text) >= quantity_span["end"] + 1 and text[quantity_span["end"]] == "%":
             quantity_span["text"] = quantity_span["text"] + "%"
             quantity_span["end"] += 1
-        elif len(text) >= quantity_span["end"] + 2 and text[quantity_span["end"]:quantity_span["end"] + 1] == " %":
+        elif len(text) >= quantity_span["end"] + 2 and text[quantity_span["end"]:quantity_span["end"] + 2] == " %":
             quantity_span["text"] = quantity_span["text"] + " %"
-            quantity_span["end"] += 2            
+            quantity_span["end"] += 2
             
         # Close parentheses.
         if len(text) >= quantity_span["end"] + 1 and text[quantity_span["end"]] in [")", "}", "]"]:

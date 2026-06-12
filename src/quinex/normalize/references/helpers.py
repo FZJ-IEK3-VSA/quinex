@@ -34,7 +34,7 @@ junk_phrases = [
     "and", "in their patent",
 ]
 [JUNK_WORDS.update(w.split()) for w in junk_phrases]
-REMAINDER_IS_JUNK = lambda x: len(x) == "" or all([w in JUNK_WORDS or NO_ALPHANUMERICS(w) for w in x.strip().split()])
+REMAINDER_IS_JUNK = lambda x: len(x) == 0 or all([w in JUNK_WORDS or NO_ALPHANUMERICS(w) for w in x.strip().split()])
 
 
 def get_identifiers_from_bib_entry(bib_entry):
