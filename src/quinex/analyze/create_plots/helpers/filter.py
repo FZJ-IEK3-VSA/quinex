@@ -41,7 +41,7 @@ def only_absolute_quantities(df, remove_percentages_and_factors=True, remove_abs
     df_absolute = df[~df.index.isin(df_relative.index)]
     
     if verbose:
-        print(f">>>>>>>>>>>>>>> Deivided absolute from relative quantities <<<<<<<<<<<<<<<")
+        print(f">>>>>>>>>>>>>>> Divided absolute from relative quantities <<<<<<<<<<<<<<<")
         print("Stats:")
         print(f" - {len(df_absolute)} absolute quantities")
         print(f" - {len(df_relative)} relative quantities, of which")

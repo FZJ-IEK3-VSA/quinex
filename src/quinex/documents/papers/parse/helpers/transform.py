@@ -44,7 +44,7 @@ def s2orc_json_to_string(paper: dict) -> str:
                 text += "\n"
                 section_header = new_section_header
 
-            # Remember offstet.
+            # Remember offset.
             char_offset = len(text)
 
             # Add paragraph text.
@@ -101,7 +101,7 @@ def elsevier_xml_json_to_string(paper: dict) -> str:
 
     annotations["abstract"].append({"start": section_start, "end": len(text.removesuffix("\n\n"))})
         
-    # Remove level in back matter which is devided in acknowledgements, conflict of interests statement, and appendices.
+    # Remove level in back matter which is divided in acknowledgements, conflict of interests statement, and appendices.
     flattened_back_matter = []
     for back_matter_section in paper["back_matter"].values():
         flattened_back_matter.extend(back_matter_section)

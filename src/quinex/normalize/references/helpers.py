@@ -145,7 +145,7 @@ def expand_citation_to_left(left_remainder, match):
     bib_part_candidates.reverse()
     
     try:
-        authors_dict = match["bib_entries"][0]["authors"]                
+        authors_dict = match["bib_entries"][0]["authors"]
     except:
         print("expand_citation_to_left: no authors key in bib entry")
         return match
@@ -190,14 +190,12 @@ def expand_citation_to_left(left_remainder, match):
 
 def expand_citation_to_right(right_remainder, match):
 
-    print("Right remainder:", right_remainder)
-    
     # Split at whitespace but protect '... et al.'
     bib_part_candidates = re.split(r"((?:\w+ (?:et al\.?|and co-workers)|\S+)\s+)", right_remainder)
     bib_part_candidates = [b for b in bib_part_candidates if b != '']        
 
     try:
-        authors_dict = match["bib_entries"][0]["authors"]                
+        authors_dict = match["bib_entries"][0]["authors"]
     except:
         print("expand_citation_to_right: no authors key in bib entry")
         return match
@@ -266,7 +264,7 @@ def get_substring_matches_with_citation_span(ref_span: str, paper: dict, tokeniz
     matches = []
     for citation in paper["annotations"].get("citations", []):
         
-        # Get matching token sequencees.        
+        # Get matching token sequences.        
         matching_blocks_ = difflib.SequenceMatcher(isjunk=None, a=tokenized_ref_span, b=tokenizer(citation["text"]), autojunk=False).get_matching_blocks()
 
         # Filter out blocks that do not contain any alphanumeric characters.
@@ -666,7 +664,7 @@ def filtered_remainder(remainder):
 
 def split_citation_span(citation_span: str):
     """
-    Split citation span into individual citation spans by checking for reppetitive patterns. 
+    Split citation span into individual citation spans by checking for repetitive patterns. 
     Note we do not split number citations like '1, 2, 3' or '1-3', etc.
 
     Example:

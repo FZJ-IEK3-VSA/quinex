@@ -6,7 +6,7 @@ import requests
 from pathlib import Path
 
 
-# TODO: Swith to geolocator?
+# TODO: Switch to geolocator?
 # geolocator = Nominatim(user_agent="Python script to normalize location names (email address here)")
 # location = geolocator.geocode("European-Mediterranean region")    
 

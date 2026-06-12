@@ -107,7 +107,7 @@ class Quinex:
         else:
             self.measurement_context_extractor = None
 
-        # Load statement classifcation model
+        # Load statement classification model
         if self.enable_statement_classification:            
             self.statement_type_classifier = StatementTypeClassification(statement_clf_model_name, devices=self.parallel_devices["statement_clf_model"], batch_size=self.batch_sizes["statement_clf_model"], dtype=dtype, verbose=verbose, debug=debug)
             if self.verbose:
@@ -461,7 +461,7 @@ class Quinex:
         elif not use_cpu and not torch.cuda.is_available():
             raise ValueError("No GPU available. Please set use_cpu=True.")
         else:                        
-            print("Using GPUs for processing.")            
+            print("Using GPUs for processing.")
             parallel_devices = {}
             for model_name, device_info in parallel_worker_device_map.items():
 

@@ -41,10 +41,10 @@ def merge_likely_wrongly_split_quantity_spans(quantity_spans, text):
     # TODO: This currently assumes that not multiple quantities consecutive quantities are merged.
     remove_idx = []
     for i, (prev, curr) in enumerate(zip(quantity_spans, quantity_spans[1:])):
-        is_adjecent = prev["end"] == curr["start"]
+        is_adjacent = prev["end"] == curr["start"]
         is_split_at_decimal = curr["start"] - prev["end"] == 1 and text[prev["end"]] == "." and prev["text"][-1].isdigit() and curr["text"][0].isdigit() 
         is_split_by_dash = curr["start"] - prev["end"] == 1 and text[prev["end"]] == "-"
-        if is_adjecent or is_split_at_decimal or is_split_by_dash:        
+        if is_adjacent or is_split_at_decimal or is_split_by_dash:        
             curr["start"] = prev["start"]
             curr["text"] = text[curr["start"] : curr["end"]]
             remove_idx.append(i)
@@ -144,7 +144,7 @@ def postprocess_quantity_span(quantity_span, text):
                         quantity_span["text"] = quantity_span["text"][:-1]
                         quantity_span["end"] -= 1
                     elif quantity_span["text"].startswith(opening) and quantity_span["text"].count(opening) - quantity_span["text"].count(closing) > 0:
-                        # Remove leading trailing parentheses.
+                        # Remove single leading parentheses.
                         quantity_span["text"] = quantity_span["text"][1:]
                         quantity_span["start"] += 1
             
@@ -254,7 +254,7 @@ class QuantitySpanIdentification:
             skip_imprecise_quantities (bool): If True, imprecise quantities are skipped.
             filter (bool): If True, only quantities with numbers are returned.
             soft_filter (bool): If True, quantity spans that only consist of special characters or whitespace are removed.            
-            post_process (bool): If True, trailing commas and whitespaces are removed and adjecent and overlapping quantity spans are merged.
+            post_process (bool): If True, trailing commas and whitespaces are removed and adjacent and overlapping quantity spans are merged.
             add_curation_fields (bool): If True, additional fields for later manual curation are added to the output.
 
         Returns:
@@ -287,7 +287,7 @@ class QuantitySpanIdentification:
                 quantity_spans = filter_garbage_quantity_spans(quantity_spans)
                             
             if post_process:
-                # Remove trailing commas, whitespace and merge adjecent and overlapping quantity spans.
+                # Remove trailing commas, whitespace and merge adjacent and overlapping quantity spans.
                 quantity_spans = merge_likely_wrongly_split_quantity_spans(quantity_spans, chunk)
                 quantity_spans = postprocess_quantity_spans(quantity_spans, chunk)
                 
@@ -317,7 +317,7 @@ class QuantitySpanIdentification:
         if self.verbose:
             msg.good("Quantity span identification done in", round(time()-tic, 3), "s.")
 
-        # Optinally, skip imprecise quantities such as 'several trees'.
+        # Optionally, skip imprecise quantities such as 'several trees'.
         if skip_imprecise_quantities:
             quantities = []
             imprecise_quantities_surfaces = []
@@ -329,7 +329,7 @@ class QuantitySpanIdentification:
                     quantities.append(q)
 
             if len(imprecise_quantities_surfaces) > 0:
-                msg.text("Ignoring the following imprecise quantitities (set skip_imprecise_quantities=False to disable): " + str(imprecise_quantities_surfaces), color="grey")
+                msg.text("Ignoring the following imprecise quantities (set skip_imprecise_quantities=False to disable): " + str(imprecise_quantities_surfaces), color="grey")
                 
         else:
             quantities = pp_quantity_spans_per_chunk
@@ -395,7 +395,7 @@ class QuantitySpanIdentification:
 
         def _summarize_normalized_units(normalized_quantity: dict) -> dict:
             """
-            Summerize normalized units (e.g., by combining prefixed and suffixed units).
+            Summarize normalized units (e.g., by combining prefixed and suffixed units).
             """
             
             # Combine prefixed and suffixed units.
@@ -436,7 +436,7 @@ class QuantitySpanIdentification:
             del q["prefixed_modifier"]
             del q["suffixed_modifier"]
 
-            # Summerize value.
+            # Summarize value.
             if q["value"]["normalized"] == None:
                 q["value"]["normalized"]["numeric_value"] = None
                 q["value"]["normalized"]["is_imprecise"] = None
