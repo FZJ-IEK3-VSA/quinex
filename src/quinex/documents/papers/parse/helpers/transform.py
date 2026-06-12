@@ -168,7 +168,7 @@ def post_process_parsed_json(json_paper):
 
     def post_process_parsed_text(text):
         """Post-process parsed text."""
-        if type(text) == str:
+        if isinstance(text, str):
             text = text.replace("u \u00a8","ü")
 
         return text
@@ -176,7 +176,7 @@ def post_process_parsed_json(json_paper):
     def apply_changes_to_dict(d):
         """Go trough nested dictionary and apply changes."""
         for k, v in d.items():
-            if type(v) == dict:
+            if isinstance(v, dict):
                 apply_changes_to_dict(v)
             elif k in relevant_keys:
                 d[k] = post_process_parsed_text(v)

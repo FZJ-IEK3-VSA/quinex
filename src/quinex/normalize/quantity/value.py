@@ -69,7 +69,7 @@ def transform_interval_into_single_value(normalized_interval, temporal_scope, sp
                 or normalized_interval["normalized_quantities"][0]["prefixed_unit"]["normalized"] == normalized_interval["normalized_quantities"][1]["prefixed_unit"]["normalized"]) \
                     and (normalized_interval["normalized_quantities"][0]["suffixed_unit"] == None and normalized_interval["normalized_quantities"][1]["suffixed_unit"] == None \
                         or normalized_interval["normalized_quantities"][0]["suffixed_unit"]["normalized"] == normalized_interval["normalized_quantities"][1]["suffixed_unit"]["normalized"])
-    except:
+    except Exception:
         # Units do not match, so we cannot average the values.
         if take_first_value_if_interval_with_different_units:
             # Assume quantity was mistakenly identified as an interval, but actually is a single value.

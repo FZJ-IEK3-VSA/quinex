@@ -70,8 +70,7 @@ class StatementTypeClassification:
                     )
 
                 except Exception as e:
-                    print("Quantity that caused error:", quantity)
-                    raise print(f"Error in statement classification: {e}")
+                    raise ValueError(f"Error in statement classification for quantity '{quantity}': {e}")
                                 
                 # Take chunk size smaller than the maximum model input size as the training examples were fairly small.
                 chunk_size = 200 # TODO: Change chunk size with new training data.

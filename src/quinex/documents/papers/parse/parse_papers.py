@@ -167,7 +167,7 @@ def intermediate_json_to_json(paper_dir: PosixPath, papers_to_process: list=[]):
                 else:
                     try:
                         year = int(year)
-                    except:
+                    except Exception:
                         year = None
                 paper["metadata"]["bibliographic"]["publication_year"] = year
             if paper["metadata"]["bibliographic"].get("authors") == None:

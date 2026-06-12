@@ -283,7 +283,7 @@ class MeasurementContextExtraction:
             for chunks in qualifier_inputs_per_key.values():
                 for chunk in chunks:
                     if self.token_counter(chunk) > self.chunk_size:
-                        raise print(f"Chunk in qualifier extraction is too long: {len(chunk)} > {self.chunk_size}. Assuming tokenizer for qualifier extraction is the same as for property and entity extraction.")
+                        raise ValueError(f"Chunk in qualifier extraction is too long: {len(chunk)} > {self.chunk_size}. Assuming tokenizer for qualifier extraction is the same as for property and entity extraction.")
         
         # Perform qualifier extraction in parallel.
         approach = 2

@@ -1,4 +1,5 @@
 import math
+import warnings
 from transformers import (
     pipeline,
     T5Tokenizer,
@@ -61,7 +62,7 @@ def get_text_chunking_helper(model_name, task, local_files_only: bool=False):
     
     # Check if tokenizer max length is power of two .
     if math.log2(tokenizer.model_max_length) % 1 != 0:
-        raise Warning(f"Max. token length probably not correct: Model {model_name} has a maximum length of {tokenizer.model_max_length} which is not a power of two.")
+        warnings.warn(f"Max. token length probably not correct: Model {model_name} has a maximum length of {tokenizer.model_max_length} which is not a power of two.")
     
     # Remember the maximum length of the model.
     max_chunk_size = tokenizer.model_max_length

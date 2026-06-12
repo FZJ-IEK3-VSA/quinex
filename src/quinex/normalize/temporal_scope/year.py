@@ -21,7 +21,7 @@ def get_int_year_from_temporal_scope(
     the publication year and assumed relative time spans.
     """
 
-    if publication_year != None and type(publication_year) != int:
+    if publication_year != None and not isinstance(publication_year, int):
         raise ValueError("publication_year must be an integer or None")
 
     if temporal_scope_span == "":

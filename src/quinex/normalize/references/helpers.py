@@ -146,7 +146,7 @@ def expand_citation_to_left(left_remainder, match):
     
     try:
         authors_dict = match["bib_entries"][0]["authors"]
-    except:
+    except Exception:
         print("expand_citation_to_left: no authors key in bib entry")
         return match
 
@@ -196,7 +196,7 @@ def expand_citation_to_right(right_remainder, match):
 
     try:
         authors_dict = match["bib_entries"][0]["authors"]
-    except:
+    except Exception:
         print("expand_citation_to_right: no authors key in bib entry")
         return match
                         

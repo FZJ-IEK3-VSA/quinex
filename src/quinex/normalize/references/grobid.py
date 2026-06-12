@@ -120,9 +120,11 @@ def normalize_references(quantitative_statement, paper, revert_to_bibliographic_
     else:
         individual_matches = match
 
-    assert type(individual_matches) == list            
-    if len(individual_matches) > 0:
-        assert type(individual_matches[0]) == dict
+    if not isinstance(individual_matches, list):
+        raise TypeError(f"Expected individual_matches to be a list, got {type(individual_matches)}")
+    
+    if len(individual_matches) > 0 and not isinstance(individual_matches[0], dict):
+        raise TypeError(f"Expected elements of individual_matches to be dicts, got {type(individual_matches[0])}")
 
     if len(individual_matches) == 0:
         # Do not return empty matches when there is clearly a match but some text around it that is not matched, 
