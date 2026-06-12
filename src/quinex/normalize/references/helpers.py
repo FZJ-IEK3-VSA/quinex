@@ -1,5 +1,4 @@
 import re
-import time
 import difflib
 import unicodedata
 from thefuzz import fuzz
@@ -603,9 +602,9 @@ def match_citation_span_with_references_from_bibliography(citation_span, bibliog
 
 def match_citation_span_with_references_from_bibliographic_api(citation_span, ref_works_ids):
     """Check for unique matches in references provided by bibliographic API."""    
-    time.sleep(0.5)
-    ref_papers = get_papers_by_ids(ref_works_ids, get_only_basic_data=True)
-    return match_citation_span_with_bib_entries(citation_span, bib_entries=ref_papers, citation_str_creator=lambda x: create_citation_strings_from_openalex(x))    
+    # Full metadata is required to build citation strings (authorships, primary_location, biblio, ids, ...); basic info is not sufficient here.
+    ref_papers = get_papers_by_ids(ref_works_ids, only_basic_info=False)
+    return match_citation_span_with_bib_entries(citation_span, bib_entries=ref_papers, citation_str_creator=lambda x: create_citation_strings_from_openalex(x))
 
 
 def expand_citation_span(citation_span, recursion_level=0, max_recursion_level=25):

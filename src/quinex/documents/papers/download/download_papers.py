@@ -166,7 +166,8 @@ def download_paper(paper, paper_dir, openalex_work_id, license, allowed_formats=
     print("Try to download paper", openalex_work_id)
    
     success = False
-    paper_already_downloaded = os.path.exists(paper_dir / "raw.pdf") or os.path.exists(paper_dir / "xml.pdf")
+    file_format = None
+    paper_already_downloaded = os.path.exists(paper_dir / "raw.pdf") or os.path.exists(paper_dir / "raw.xml")    
 
     # Check if paper should be downloaded.
     if only_english and paper["language"] != "en":
@@ -193,7 +194,7 @@ def download_paper(paper, paper_dir, openalex_work_id, license, allowed_formats=
     if allowed_formats["elsevier_xml"] and is_elsevier(paper["primary_location"]["source"]["host_organization_name"]) and (not allowed_licenses["only_open_access"] or paper["primary_location"]["is_oa"]):
         # Try to download XML from Elsevier.
         oa_locations = {}
-        success, fulltext, downloaded_from, oa_according_to_elseveir = get_elsevier_fulltext(paper["doi"], paper_dir, display_name=openalex_work_id)
+        success, fulltext, downloaded_from, oa_according_to_elseveir = get_elsevier_fulltext(paper["doi"], paper_dir, allowed_licenses=allowed_licenses, display_name=openalex_work_id)
         if success:
             file_format = "xml"
     
@@ -232,8 +233,7 @@ def download_papers(
         allowed_licenses["commercial_use_allowed"] (bool, optional): Do you want to commerically use the papers or adaptations/modifications of them? Defaults to False. If True, the license must allow for commercial use.
 
     """    
-
-    # TODO: Add mailto:you@example.com somewhere in User-Agent request header.    
+    
     force_redownload=analysis_config['download']['force_redownload']
     allowed_formats=analysis_config['download']['allowed_formats']
     allowed_licenses=analysis_config['download']['allowed_licenses']
@@ -258,20 +258,38 @@ def download_papers(
     # Download fulltexts.
     papers_to_download_manually = {}
     papers_downloaded = {"pdf": 0, "xml": 0}
+    papers_failed = 0
     papers_dir = analysis_dir / "papers"
     for paper in tqdm(papers):
-        success, paper_id, format, paper_already_downloaded = download_paper(paper, papers_dir, allowed_formats=["pdf", "elsevier_xml"])
-        if success:                
+        openalex_work_id = paper["id"].removeprefix('https://openalex.org/')        
+        try:
+            license = paper["primary_location"]["license"]
+            paper_dir = papers_dir / openalex_work_id
+            os.makedirs(paper_dir, exist_ok=True)
+            success, paper_id, format, paper_already_downloaded = download_paper(
+                paper, paper_dir, openalex_work_id, license,
+                allowed_formats=allowed_formats,
+                allowed_licenses=allowed_licenses,
+                force_redownload=force_redownload,
+                nice=nice,
+                timeout_per_paper_in_s=timeout_per_paper_in_s,
+            )
+        except Exception as e:
+            papers_failed += 1
+            msg.fail(f"Error while downloading paper {openalex_work_id}: {e}")
+            continue
+
+        if success:
             papers_downloaded[format] += 1
         else:
-            openalex_work_id = paper["id"].removeprefix('https://openalex.org/')
-            best_oa_url = paper["open_access"]["oa_url"]
+            best_oa_url = paper.get("open_access", {}).get("oa_url")
             msg.fail(f"Failed to download paper {openalex_work_id}: {best_oa_url}")
             papers_to_download_manually[openalex_work_id] = {"url": best_oa_url, "title": paper["title"]}
-            if is_acs(paper["primary_location"]["source"]["host_organization_name"]):
-                msg.info("ACS has no easy way to programmaticaly get PDFs for TDM. You have to contact them. (https://solutions.acs.org/solutions/text-and-data-mining/)")               
-            elif is_iop(paper["primary_location"]["source"]["host_organization_name"]):
-                msg.info("IOP uses CAPTCHAs.")            
+            host_organization_name = paper["primary_location"]["source"]["host_organization_name"]
+            if is_acs(host_organization_name):
+                msg.info("ACS has no easy way to programmaticaly get PDFs for TDM. You have to contact them. (https://solutions.acs.org/solutions/text-and-data-mining/)")
+            elif is_iop(host_organization_name):
+                msg.info("IOP uses CAPTCHAs.")
 
     # Save papers to download manually.
     papers_to_download_manually_with_instructions = {"instruction:": "Download the PDFs of the following papers manually. Rename each paper to raw.pdf and move it to paper directory with the same name as its OpenAlex ID.", "papers": papers_to_download_manually}
@@ -284,6 +302,7 @@ def download_papers(
         "license_counts": dict(license_counts),
         "papers_downloaded": papers_downloaded,
         "papers_to_download_manually": len(papers_to_download_manually),
+        "papers_failed": papers_failed,
     }
     with open(analysis_dir / "selected_papers_download_stats.json", "w") as f:
         json.dump(stats, f, indent=4, ensure_ascii=False)

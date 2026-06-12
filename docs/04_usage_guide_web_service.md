@@ -61,6 +61,11 @@ To run the Quinex paper processing service, you need to set up the following com
     export EMAIL_ADDRESS="j.doe@example.com"
     ```
  
+    OpenAlex is used to look up publication metadata and requires an API key (free). Get a key at https://openalex.org/ and set it as an environment variable. It is sent with every OpenAlex request and is important to avoid rate limiting when retrieving metadata for many papers.
+    ```bash
+    export OPENALEX_API_KEY="<your_api_key>"
+    ```
+
     If you want to consider XMLs from Elsevier, you have to set your Elsevier API key as an environment variable. You can read the terms and get an API key at https://dev.elsevier.com/apikey/manage.
     ```bash
     export ELSEVIER_API_KEY="<your_api_key>"

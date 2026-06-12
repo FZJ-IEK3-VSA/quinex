@@ -564,7 +564,10 @@ def bulk_analysis_endpoint(analysis_name: analysis_name_constr, filter_by: OpenA
         raise HTTPException(status_code=400, detail="Found 0 papers matching your query and filters. Please adjust your query and filters. The OpenAlex API is used in the backend to search for papers. So your query must be a valid OpenAlex search query (https://openalex.org/works).")
 
     print("STEP 2: Download papers")    
-    download_stats, papers_to_download_manually = None, None if skip_download else download_papers(ANALYSIS_DIR, analysis_config)
+    if skip_download:
+        download_stats, papers_to_download_manually = None, None
+    else:
+        download_stats, papers_to_download_manually = download_papers(ANALYSIS_DIR, analysis_config)
 
     print("STEP 3 and 4: Parse papers and extract information")
     processed_papers, failed_parses, number_of_quantities, average_extraction_time_per_paper, total_normalization_time = parse_and_extract(PAPER_DIR, analysis_config, skip_paper_parsing=False, skip_extraction=False, gpu_count=4)
